@@ -11,7 +11,8 @@ if __name__=='__main__':
 
 @app.route("/", methods =["GET", "POST"])
 def home():
-
+    test = "TESTING STRING"
+    
     if request.method == "POST":
        ticker_symbol = request.form.get("ticker")
        company_name = yf.Ticker(ticker_symbol)
