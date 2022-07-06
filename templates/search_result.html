@@ -1,9 +1,15 @@
-<body
-<center 
-<p>Historically</p> <img src='data:image/png;base64,{{data_to_send}}'/>
-{% for element in company_to_send%}
-<p>{{element}}</p>
-{% endfor %}
+<body>
+<p>
+{{company_sector_to_send}}<br>
+{{todays_high_to_send}}<br>
+{{todays_low_to_send}}<br>
+{{market_price_to_send}}<br>
+{{company_summary_to_send}}
+</p>
 
-</center>
 </body>
+
+<center 
+<p>Historically</p> 
+<img src='data:image/png;base64,{{data_to_send}}'/>
+</center>

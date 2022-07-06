@@ -23,8 +23,6 @@ def home():
        todays_low = "Todays low: ", company_name.info['dayLow']
        company_summary = "Company summary: ", company_name.info['longBusinessSummary']
 
-       company = {company_sector, market_price, todays_high, todays_low, company_summary}
-
        #GRAPH's buffer/information
        #ADD other graphs if necessary
        #Historical graph
@@ -36,9 +34,14 @@ def home():
        plt.savefig(buf, format="png")
        data = base64.b64encode(buf.getbuffer()).decode("ascii")
 
-#FIX company list, it is sent in a different order each time
+       return render_template("search_result.html",
+        data_to_send = data,
+        company_sector_to_send = company_sector,
+        market_price_to_send = market_price,
+        todays_high_to_send = todays_high,
+        todays_low_to_send = todays_low,
+        company_summary_to_send = company_summary)
 
-       return render_template("search_result.html", data_to_send = data, company_to_send = company)
     return render_template("index.html")
 
 #ADD account information, ADD followed companies
