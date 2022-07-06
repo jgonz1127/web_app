@@ -19,11 +19,14 @@ def home():
        plt.plot(history_data['High'])
        plt.xlabel('Year')
        plt.ylabel('$ USD')
+       
        buf = BytesIO()
        plt.savefig(buf, format="png")
        data = base64.b64encode(buf.getbuffer()).decode("ascii")
+
 #FIX search_result.html in /template
 #IMPLEMENT template to update graphs and summaries accordingly
+
        return f"<center <p>Historically</p> <img src='data:image/png;base64,{data}'/> </center>"
     return render_template("index.html")
 
