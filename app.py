@@ -23,7 +23,6 @@ def home():
        todays_low = "Todays low: ", company_name.info['dayLow']
        company_summary = "Company summary: ", company_name.info['longBusinessSummary']
 
-       #GRAPH's buffer/information
        #ADD other graphs if necessary
        #Historical graph
        history_data = company_name.history(period = "max")
@@ -44,7 +43,7 @@ def home():
 
     return render_template("index.html")
 
-#ADD account information, ADD followed companies
+#CONNECT to db, ADD account information, ADD followed companies
 @app.route("/account/", methods =["GET", "POST"])
 def account():
    return render_template('account.html')
@@ -54,7 +53,7 @@ def account():
 def company_page():
    return render_template('company_page.html')
 
-#ADD login functionality with db, ADD signup button
+#ADD login functionality with db
 @app.route("/log_in/", methods =["GET", "POST"])
 def log_in():
    return render_template('log_in.html')
