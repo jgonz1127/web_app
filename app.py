@@ -11,8 +11,19 @@ if __name__=='__main__':
 
 @app.route("/", methods =["GET", "POST"])
 def home():
-    test = "TESTING STRING"
+
+   #WILL COMPARE TOP COMAPNIES POST TOP 3 GRAPHS AND INFO ON HOME
+   # alphabet, Madras Rubber Factory Limited, Markel Corporation, Amazon Inc, Booking Holdings Inc.,NVR Inc.
+   # Seaboard Corporation, Next Plc, Lindt & Sprüngli AG ,Berkshire Hathaway
+
+    top_companies = {"GOOGL", "MRF", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
+
+    #FIND TOP 3 MARKETPRICE
+    for top_companies
+
+
     
+    #SEARCH BAR  
     if request.method == "POST":
        ticker_symbol = request.form.get("ticker")
        company_name = yf.Ticker(ticker_symbol)
