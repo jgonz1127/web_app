@@ -36,7 +36,7 @@ def home():
        plt.savefig(buf, format="png")
        data = base64.b64encode(buf.getbuffer()).decode("ascii")
 
-#FIX company list is sent in a different order each time
+#FIX company list, it is sent in a different order each time
 
        return render_template("search_result.html", data_to_send = data, company_to_send = company)
     return render_template("index.html")
@@ -46,6 +46,7 @@ def home():
 def account():
    return render_template('account.html')
    
+#FIX, will be how search is currently
 @app.route("/company_page/", methods =["GET", "POST"])
 def company_page():
    return render_template('company_page.html')
@@ -55,7 +56,7 @@ def company_page():
 def log_in():
    return render_template('log_in.html')
 
-#CREATE sign up information, CONNECT with database
+#CONNECT with database
 @app.route("/sign_up/", methods =["GET", "POST"])
 def sign_up():
    return render_template('sign_up.html')
