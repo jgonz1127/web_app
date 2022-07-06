@@ -1,6 +1,11 @@
 <form action="{{ url_for("account")}}" method="post">
     <label for="Username">Username:</label>
     <input type="text" id="user_name" name="user_name">
+
     <label for="Password">Password:</label>
-    <input type="text" id="password" name="password">
-    <button type="submit">Login</button>
+    <input type="password" id="password" name="password">
+
+<center>
+    <button type="button"onclick=" window.location.href = '/account';">Login</button>
+    <button type="button" onclick=" window.location.href = '/sign_up';">Sign up</button>
+</center>

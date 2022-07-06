@@ -41,14 +41,21 @@ def home():
        return render_template("search_result.html", data_to_send = data, company_to_send = company)
     return render_template("index.html")
 
+#ADD account information, ADD followed companies
 @app.route("/account/", methods =["GET", "POST"])
 def account():
    return render_template('account.html')
-
+   
 @app.route("/company_page/", methods =["GET", "POST"])
 def company_page():
    return render_template('company_page.html')
 
+#ADD login functionality with db, ADD signup button
 @app.route("/log_in/", methods =["GET", "POST"])
 def log_in():
    return render_template('log_in.html')
+
+#CREATE sign up information, CONNECT with database
+@app.route("/sign_up/", methods =["GET", "POST"])
+def sign_up():
+   return render_template('sign_up.html')
