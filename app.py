@@ -4,7 +4,9 @@ from flask import Flask, request, render_template
 import yfinance as yf
 import matplotlib.pyplot as plt
 from io import BytesIO
-# TESTING A PUSH
+
+# TESTING A PUSH TESTING
+
 app = Flask(__name__)
 if __name__=='__main__':
    app.run()
