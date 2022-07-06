@@ -5,7 +5,7 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 from io import BytesIO
 
-# TESTING A PUSH TESTING
+# TESTING
 
 app = Flask(__name__)
 if __name__=='__main__':
