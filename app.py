@@ -3,7 +3,6 @@ from io import BytesIO
 from flask import Flask, request, render_template
 import yfinance as yf
 import matplotlib.pyplot as plt
-from io import BytesIO
 
 app = Flask(__name__)
 if __name__=='__main__':
@@ -19,9 +18,12 @@ def home():
     top_companies = {"GOOGL", "MRF", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
 
     #FIND TOP 3 MARKETPRICE
-    for top_companies
+   #  top_company =
+   #  second_company = 
+   #  third_company = 
 
-
+   #  top_ticker = request.form.get("ticker")
+   #  test = top_ticker.info['regularMarketPrice']
     
     #SEARCH BAR  
     if request.method == "POST":
