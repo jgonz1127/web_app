@@ -14,10 +14,9 @@ def home():
    #WILL COMPARE TOP COMAPNIES POST TOP 3 GRAPHS AND INFO ON HOME
    # alphabet, Madras Rubber Factory Limited, Markel Corporation, Amazon Inc, Booking Holdings Inc.,NVR Inc.
    # Seaboard Corporation, Next Plc, Lindt & Sprüngli AG ,Berkshire Hathaway
+   # top_companies = {"GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
 
-    top_companies = {"GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
-
-   #TOP 3 COMPANIES
+   #TOP 3 COMPANIES hard coded for now WILL CHANGE
     top_company = "GOOGL"
     second_company = "AMZN"
     third_company = "MKL"
@@ -86,7 +85,6 @@ def home():
        todays_low = "Todays low: ", company_name.info['dayLow']
        company_summary = "Company summary: ", company_name.info['longBusinessSummary']
 
-       #ADD other graphs if necessary
        #Historical graph
        history_data = company_name.history(period = "max")
        plt.plot(history_data['High'])
@@ -127,7 +125,7 @@ def home():
 def account():
    return render_template('account.html')
    
-#GET company_ticker from search_result.html, ADD company information display
+#GET company_ticker from search_result.html
 @app.route("/company_page/", methods =["GET", "POST"])
 def company_page():
    ticker_from_html = "GOOGL"
