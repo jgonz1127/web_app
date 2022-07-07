@@ -34,20 +34,25 @@
   <div class="w3-row-padding w3-padding-16 w3-center" id="top 3 companies">
     <div class="w3-quarter">
 
-      <img src="/static/test1.jpg" alt="Most valued" style="width:100%" align="middle">
-      <h3>Highest valued company</h3>
+      <p>Historical value</p> 
+      <img src='data:image/png;base64,{{top_data_to_send}} 'alt="Most valued" style="width:130%" align="middle"/>
+      <h3>The highest valued {{top_company_sector_to_send}} company is {{top_ticker_symbol_to_send}} with a market val: ${{top_company_market_price_to_send}}</h3>
       <p>Desciption of company.</p>
     </div>
 
     <div class="w3-quarter">
-      <img src="/static/test2.png" alt="Most traded company" style="width:100%" align="middle">
-      <h3>Most traded company</h3>
+
+      <p>Historical value</p> 
+      <img src='data:image/png;base64,{{second_data_to_send}} 'alt="Most valued" style="width:100%" align="middle"/>
+      <h3>The highest valued {{second_company_sector_to_send}} company is {{second_ticker_symbol_to_send}} with a market val: ${{second_company_market_price_to_send}}</h3>
       <p>Desciption of company.</p>
     </div>
 
     <div class="w3-quarter">
-      <img src="/static/test3.jpg" alt="All time high" style="width:100%" align="middle">
-      <h3>Record high company</h3>
+
+      <p>Historical value</p> 
+      <img src='data:image/png;base64,{{third_data_to_send}} 'alt="Most valued" style="width:100%" align="middle"/>
+      <h3>The highest valued {{third_company_sector_to_send}} company is {{third_ticker_symbol_to_send}} with a market val: ${{third_company_market_price_to_send}}</h3>
       <p>Desciption of company.</p>
     </div>
 

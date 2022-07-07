@@ -15,16 +15,63 @@ def home():
    # alphabet, Madras Rubber Factory Limited, Markel Corporation, Amazon Inc, Booking Holdings Inc.,NVR Inc.
    # Seaboard Corporation, Next Plc, Lindt & Sprüngli AG ,Berkshire Hathaway
 
-    top_companies = {"GOOGL", "MRF", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
+    top_companies = {"GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
 
-    #FIND TOP 3 MARKETPRICE
-   #  top_company =
-   #  second_company = 
-   #  third_company = 
+   #TOP 3 COMPANIES
+    top_company = "GOOGL"
+    second_company = "AMZN"
+    third_company = "MKL"
 
-   #  top_ticker = request.form.get("ticker")
-   #  test = top_ticker.info['regularMarketPrice']
+   #TOP COMPANY DATA 
+    top_ticker_symbol = top_company
+    top_company_name = yf.Ticker(top_ticker_symbol)
+
+    top_company_market_price = top_company_name.info['regularMarketPrice']
+    top_company_sector = top_company_name.info['sector']
+
+   #TOP Historical graph
+    top_history_data = top_company_name.history(period = "max")
+    plt.plot(top_history_data['High'])
+    plt.xlabel('Year')
+    plt.ylabel('$ USD')
+    top_buf = BytesIO()
+    plt.savefig(top_buf, format="png")
+    top_data = base64.b64encode(top_buf.getbuffer()).decode("ascii")
+
+   #SECOND COMPANY DATA
+    second_ticker_symbol = second_company
+    second_company_name = yf.Ticker(second_ticker_symbol)
+
+    second_company_market_price = second_company_name.info['regularMarketPrice']
+    second_company_sector = second_company_name.info['sector']
+
+   #SECOND Historical graph
+    second_history_data = second_company_name.history(period = "max")
+    plt.plot(second_history_data['High'])
+    plt.xlabel('Year')
+    plt.ylabel('$ USD')
+    second_buf = BytesIO()
+    plt.savefig(second_buf, format="png")
+    second_data = base64.b64encode(second_buf.getbuffer()).decode("ascii")
     
+
+   #THIRD COMPANY DATA
+
+    third_ticker_symbol = third_company
+    third_company_name = yf.Ticker(third_ticker_symbol)
+
+    third_company_market_price = third_company_name.info['regularMarketPrice']
+    third_company_sector = third_company_name.info['sector']
+
+   #THIRD Historical graph
+    third_history_data = third_company_name.history(period = "max")
+    plt.plot(third_history_data['High'])
+    plt.xlabel('Year')
+    plt.ylabel('$ USD')
+    third_buf = BytesIO()
+    plt.savefig(third_buf, format="png")
+    third_data = base64.b64encode(third_buf.getbuffer()).decode("ascii")
+
     #SEARCH BAR  
     if request.method == "POST":
        ticker_symbol = request.form.get("ticker")
@@ -53,9 +100,24 @@ def home():
         market_price_to_send = market_price,
         todays_high_to_send = todays_high,
         todays_low_to_send = todays_low,
-        company_summary_to_send = company_summary)
+        company_summary_to_send = company_summary,)
 
-    return render_template("index.html")
+    return render_template("index.html",
+    top_ticker_symbol_to_send = top_ticker_symbol,
+    top_company_sector_to_send = top_company_sector,
+    top_company_market_price_to_send = top_company_market_price,
+    top_data_to_send = top_data,
+    
+    second_ticker_symbol_to_send = second_ticker_symbol,
+    second_company_sector_to_send = second_company_sector,
+    second_company_market_price_to_send = second_company_market_price,
+    second_data_to_send = second_data,
+
+    third_ticker_symbol_to_send = third_ticker_symbol,
+    third_company_sector_to_send = third_company_sector,
+    third_company_market_price_to_send = third_company_market_price,
+    third_data_to_send = third_data
+    )
 
 #CONNECT to db, ADD account information, ADD followed companies
 @app.route("/account/", methods =["GET", "POST"])
