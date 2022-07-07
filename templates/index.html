@@ -22,7 +22,7 @@
 </div>
   
 <!-- !PAGE CONTENT! -->
-<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+<div class="w3-main w3-content w3-padding" style="max-width:1500px;margin-top:100px">
 
     <!-- SEARCH BAR-->
     <form action="{{ url_for("home")}}" method="post">
@@ -31,27 +31,21 @@
         <button type="submit">Search</button>
 
   <!-- WILL DISPLAY GRAPHS OF THESE COMPANIES CALCULATED BY THE API-->
-  <div class="w3-row-padding w3-padding-16 w3-center" id="top 3 companies">
+  <div class="w3-row-padding w3-padding-50 w3-center" id="top 3 companies">
     <div class="w3-quarter">
-
-      <p>Historical value</p> 
-      <img src='data:image/png;base64,{{top_data_to_send}} 'alt="Most valued" style="width:130%" align="middle"/>
+      <img src='data:image/png;base64,{{top_data_to_send}} 'alt="Most valued" style="width:100%"/>
       <h3>The highest valued {{top_company_sector_to_send}} company is {{top_ticker_symbol_to_send}} with a market val: ${{top_company_market_price_to_send}}</h3>
       <p>Desciption of company.</p>
     </div>
 
     <div class="w3-quarter">
-
-      <p>Historical value</p> 
-      <img src='data:image/png;base64,{{second_data_to_send}} 'alt="Most valued" style="width:100%" align="middle"/>
+      <img src='data:image/png;base64,{{second_data_to_send}} 'alt="Most valued" style="width:100%"/>
       <h3>The highest valued {{second_company_sector_to_send}} company is {{second_ticker_symbol_to_send}} with a market val: ${{second_company_market_price_to_send}}</h3>
       <p>Desciption of company.</p>
     </div>
 
     <div class="w3-quarter">
-
-      <p>Historical value</p> 
-      <img src='data:image/png;base64,{{third_data_to_send}} 'alt="Most valued" style="width:100%" align="middle"/>
+      <img src='data:image/png;base64,{{third_data_to_send}} 'alt="Most valued" style="width:100%"/>
       <h3>The highest valued {{third_company_sector_to_send}} company is {{third_ticker_symbol_to_send}} with a market val: ${{third_company_market_price_to_send}}</h3>
       <p>Desciption of company.</p>
     </div>

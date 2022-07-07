@@ -37,6 +37,7 @@ def home():
     top_buf = BytesIO()
     plt.savefig(top_buf, format="png")
     top_data = base64.b64encode(top_buf.getbuffer()).decode("ascii")
+    plt.close()
 
    #SECOND COMPANY DATA
     second_ticker_symbol = second_company
@@ -53,7 +54,7 @@ def home():
     second_buf = BytesIO()
     plt.savefig(second_buf, format="png")
     second_data = base64.b64encode(second_buf.getbuffer()).decode("ascii")
-    
+    plt.close()
 
    #THIRD COMPANY DATA
 
@@ -71,6 +72,7 @@ def home():
     third_buf = BytesIO()
     plt.savefig(third_buf, format="png")
     third_data = base64.b64encode(third_buf.getbuffer()).decode("ascii")
+    plt.close()
 
     #SEARCH BAR  
     if request.method == "POST":
@@ -93,6 +95,7 @@ def home():
        buf = BytesIO()
        plt.savefig(buf, format="png")
        data = base64.b64encode(buf.getbuffer()).decode("ascii")
+       plt.close()
 
        return render_template("search_result.html",
         data_to_send = data,
@@ -124,10 +127,20 @@ def home():
 def account():
    return render_template('account.html')
    
-#FIX, will be how search is currently
+#GET company_ticker from search_result.html, ADD company information display
 @app.route("/company_page/", methods =["GET", "POST"])
 def company_page():
-   return render_template('company_page.html')
+   get_from_html = "GOOGL"
+   company_ticker = yf.Ticker(get_from_html)
+   company_dividends = company_ticker.dividends
+   company_financials = company_ticker.financials
+   company_major_holders = company_ticker.major_holders
+
+   return render_template('company_page.html', 
+   company_dividends_to_send = company_dividends,
+   company_financials_to_send = company_financials,
+   company_major_holders_to_send = company_major_holders
+   )
 
 #ADD login functionality with db
 @app.route("/log_in/", methods =["GET", "POST"])
