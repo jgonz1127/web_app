@@ -130,16 +130,24 @@ def account():
 #GET company_ticker from search_result.html, ADD company information display
 @app.route("/company_page/", methods =["GET", "POST"])
 def company_page():
-   get_from_html = "GOOGL"
-   company_ticker = yf.Ticker(get_from_html)
+   ticker_from_html = "GOOGL"
+   company_ticker = yf.Ticker(ticker_from_html)
    company_dividends = company_ticker.dividends
    company_financials = company_ticker.financials
    company_major_holders = company_ticker.major_holders
+   company_institutional_holders = company_ticker.institutional_holders
+   company_balance_sheet = company_ticker.balance_sheet
+   company_cashflow = company_ticker.cashflow
+   company_earnings = company_ticker.earnings
 
    return render_template('company_page.html', 
    company_dividends_to_send = company_dividends,
    company_financials_to_send = company_financials,
-   company_major_holders_to_send = company_major_holders
+   company_major_holders_to_send = company_major_holders,
+   company_institutional_holders_to_send = company_institutional_holders,
+   company_balance_sheet_to_send = company_balance_sheet,
+   company_cashflow_to_send = company_cashflow,
+   company_earnings_to_send = company_earnings
    )
 
 #ADD login functionality with db
