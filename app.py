@@ -128,6 +128,7 @@ def account():
 #GET company_ticker from search_result.html
 @app.route("/company_page/", methods =["GET", "POST"])
 def company_page():
+
    ticker_from_html = "GOOGL"
    company_ticker = yf.Ticker(ticker_from_html)
    company_dividends = company_ticker.dividends
@@ -138,6 +139,17 @@ def company_page():
    company_cashflow = company_ticker.cashflow
    company_earnings = company_ticker.earnings
 
+   #CHECK if it is even possible to graph earnings throughout the years
+   #Earnings graph 
+   earnings_data = company_earnings
+   plt.plot(earnings_data['High'])
+   plt.xlabel('Year')
+   plt.ylabel('$ USD')
+   company_buf = BytesIO()
+   plt.savefig(company_buf, format="png")
+   company_data = base64.b64encode(company_buf.getbuffer()).decode("ascii")
+   plt.close()
+
    return render_template('company_page.html', 
    company_dividends_to_send = company_dividends,
    company_financials_to_send = company_financials,
@@ -145,7 +157,8 @@ def company_page():
    company_institutional_holders_to_send = company_institutional_holders,
    company_balance_sheet_to_send = company_balance_sheet,
    company_cashflow_to_send = company_cashflow,
-   company_earnings_to_send = company_earnings
+   company_earnings_to_send = company_earnings,
+   company_data_to_send = company_data
    )
 
 #ADD login functionality with db
