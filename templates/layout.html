@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %} WEB-APP {%endblock%}</title>
+        <meta charset="UTF-8">
+        <meta name='author' content='Eduardo,Justin email@hotmail.com'>
+        <meta name='language' content='en'>
+        <meta name='keywords' content='stocks, Stocks, Companies, money'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma"> 
+        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css')}}">
+        <style> body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif} .w3-bar-block .w3-bar-item {padding:20px} </style>
+    </head>
+
+    <body>  
+<!-- FIX CLASS NAMES WHEN STYLING AND CSS -->
+
+<!-- Top menu -->
+    <div class="flex_contatiner_header">
+        <div class="webname"><h1>Website</h1></div>  
+        <div class="menu_div"> 
+        <ul class="header_menu">
+            {% block menu_items %}
+            <li><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+            <li><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
+            <li><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
+            <li><a href="{{ url_for('log_in') }}" title="login page" target="_blank">login</a></li>
+            {% endblock %}
+        </ul>
+        </div>
+
+    </div>
+
+    
+        {% block body %}
+        <div class="grid container"> 
+            <div class="grid-item">body </div>
+            <div class="grid-item">body</div>   
+            <div class="grid-item">body</div>
+        </div>
+
+        {% endblock %}
+
+        <div class="footer">
+            {% block footer %}
+                <footer> footer </footer>
+            {% endblock %}
+        </div>
+    </body>
+</html>

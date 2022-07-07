@@ -103,6 +103,7 @@ def home():
         todays_low_to_send = todays_low,
         company_summary_to_send = company_summary,)
 
+# FIX HOME PAGE TO LOAD GRAPHS NOT IMAGES, FIX SPACING, FIX LINKS TO OTHER PAGES
     return render_template("index.html",
     top_ticker_symbol_to_send = top_ticker_symbol,
     top_company_sector_to_send = top_company_sector,

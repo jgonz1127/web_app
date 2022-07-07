@@ -1,0 +1,44 @@
+* {
+    box-sizing:border-box;
+}
+
+/* styling the header */
+.flex_contatiner_header {
+    color: #000000;
+    padding: 45px;
+    margin: 0 5%;
+    height: minmax(50px,min-content);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header_menu  {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    color: #000000;
+
+}
+
+.header_menu li {
+    margin-left: 10px;
+ }
+
+.header_menu a {
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s ease-out ;
+}
+
+/* adding transformations on hover*/
+.header_menu a:hover {
+  color: blue;
+  transform: rotate(6deg);
+  cursor: pointer;
+}
+
+
