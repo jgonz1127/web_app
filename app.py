@@ -7,8 +7,10 @@ from io import BytesIO
 
 app = Flask(__name__)
 if __name__=='__main__':
-   app.run()
-
+   #debug allows errors to show in the webpage for debugging, set to false before production
+   app.run(debug=True)
+   #key needed to enable csrf protection sand use FlaskForm
+   app.config["SECRET_KEY"]="TempKey"
 @app.route("/", methods =["GET", "POST"])
 def home():
 
@@ -19,11 +21,11 @@ def home():
     top_companies = {"GOOGL", "MRF", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
 
     #FIND TOP 3 MARKETPRICE
-    for top_companies
+    # for top_companies
 
 
     
-    #SEARCH BAR  
+   #  #SEARCH BAR  
     if request.method == "POST":
        ticker_symbol = request.form.get("ticker")
        company_name = yf.Ticker(ticker_symbol)
@@ -52,8 +54,8 @@ def home():
         todays_high_to_send = todays_high,
         todays_low_to_send = todays_low,
         company_summary_to_send = company_summary)
-
-    return render_template("index.html")
+   
+    return render_template('index.html')
 
 #CONNECT to db, ADD account information, ADD followed companies
 @app.route("/account/", methods =["GET", "POST"])
@@ -74,3 +76,4 @@ def log_in():
 @app.route("/sign_up/", methods =["GET", "POST"])
 def sign_up():
    return render_template('sign_up.html')
+
