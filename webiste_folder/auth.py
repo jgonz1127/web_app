@@ -55,7 +55,7 @@ def login():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('home'))
+    return redirect(url_for('auth.login'))
 
 #check if usern is signed in already stored in session available in g resources
 @bp.before_app_request

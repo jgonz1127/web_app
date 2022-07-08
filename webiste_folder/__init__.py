@@ -1,9 +1,11 @@
 #used to prevent data from corruption over transfer
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.pyplot as plt
 import os
 import base64
 from io import BytesIO
 import yfinance as yf
-import matplotlib.pyplot as plt
 from flask import Flask, request, render_template
 
 def create_app(test_config=None):
