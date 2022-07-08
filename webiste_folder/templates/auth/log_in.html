@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %} Login Page {% endblock %}
+
+{% block menu_items %}
+    <li><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+    <li><a href="{{ url_for('auth.signup') }}" title="company page" target="_blank">sign up</a></li> 
+    
+{% endblock %}
+
+{% block body %} 
+<!--action="{{ url_for("account")}}" -->
+<form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Log In">
+</form>
+{% endblock %}
