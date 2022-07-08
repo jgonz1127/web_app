@@ -43,19 +43,18 @@
         {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
         {% endfor %}
-        {% block body %}
-        <div class="grid container"> 
-            <div class="grid-item">body </div>
-            <div class="grid-item">body</div>   
-            <div class="grid-item">body</div>
-        </div>
-
-        {% endblock %}
-
-        <div class="footer">
-            {% block footer %}
-                <footer> footer </footer>
+        
+        <div class="grid_container"> 
+            {% block body %}
+                <div class="item">body </div>
+                <div class="item">body</div>   
+                <div class="item">body</div>
             {% endblock %}
+            <div class="item" id="footer">
+                {% block footer %}
+                    <footer> footer </footer>
+                {% endblock %}
+            </div>
         </div>
     </body>
 </html>

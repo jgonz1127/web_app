@@ -4,35 +4,32 @@
 
 <!-- !PAGE CONTENT! --> 
 {% block body %}
-<div class="w3-main w3-content w3-padding" style="max-width:1200px;">
-
+<div class="grid_container"> 
     <!-- SEARCH BAR-->
-    <form action="{{ url_for("home")}}" method="post">
+    <div class="search_bar">
+      <form action="{{ url_for("home")}}" method="post">
         <label for="Ticker symbol">Ticker Symbol:</label>
         <input type="text" id="ticker" name="ticker">
         <button type="submit">Search</button>
-
+    </div>
   <!-- WILL DISPLAY GRAPHS OF THESE COMPANIES CALCULATED BY THE API-->
-  <div class="w3-row-padding w3-padding-16 w3-center" id="top 3 companies">
-    <div class="w3-quarter">
-
-      <img src="/static/test1.jpg" alt="Most valued" style="width:100%" align="middle">
+ 
+    <div class="item" id="highed_valued_home">
+      <img src="/static/test1.jpg" alt="Most valued">
       <h3>Highest valued company</h3>
-     
     </div>
 
-    <div class="w3-quarter">
-      <img src="/static/test2.png" alt="Most traded company" style="width:100%" align="middle">
+    <div class="item" id="most_traded_home">
+      <img src="/static/test2.png" alt="Most traded company">
       <h3>Most traded company</h3>
-     
     </div>
 
-    <div class="w3-quarter">
-      <img src="/static/test3.jpg" alt="All time high" style="width:100%" align="middle">
+    <div class="item" id="record_high_home">
+      <img src="/static/test3.jpg" alt="All time high">
       <h3>Record high company</h3>
-      
     </div>
 
-  </div>
+</div>
 
 {% endblock %}
+{% block footer %} footer {% endblock %}

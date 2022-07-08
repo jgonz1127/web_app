@@ -2,16 +2,16 @@
     box-sizing:border-box;
 }
 
+/*primary color: #59832d*/
 /* styling the header */
 .flex_contatiner_header {
     color: #000000;
-    padding: 45px;
-    margin: 0 5%;
     height: minmax(50px,min-content);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-direction: row;
     align-items: center;
+    background-color: #1cc4a9;
 }
 
 .header_menu  {
@@ -36,9 +36,49 @@
 
 /* adding transformations on hover*/
 .header_menu a:hover {
-  color: blue;
+  color: #59832d;
   transform: rotate(6deg);
   cursor: pointer;
 }
 
 
+.grid_container {
+    margin: 0px;
+    display: grid;
+    height: auto;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: all minmax(300px, min-content);
+    row-gap: 40px;
+    justify-content: center;
+    
+}
+
+.item {
+    max-width: 100%;
+    margin: 20px;
+    text-align: center;
+}
+.search_bar  {
+    margin: 20px;
+    grid-row: 1 / span 1;
+    grid-column: 1 / -1;
+}
+#highed_valued_home {
+    grid-row: 2 / span 1;
+    grid-column: 1 / 2;
+}
+
+#most_traded_home {
+    grid-row: 2 / span 1;
+    grid-column: 2 / 3;
+}
+
+#record_high_home {
+    grid-row: 2 / span 1;
+    grid-column: 3 / 4;
+
+}
+#footer { 
+    grid-row: 3/ span 1 ;
+    grid-column: 1 / -1;
+}
