@@ -1,4 +1,11 @@
-<body>
+{% extends "layout.html" %}
+{% block title %} Company Page {% endblock %}
+{% block menu_items %}
+    <li><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+    <li><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
+{% endblock %}
+
+{% block body %}
     <p>
     Company dividends: {{company_dividends_toK_send}}<br><br>
     Company financials: {{company_financials_to_send}}<br><br>
@@ -9,5 +16,4 @@
     Company earnings: {{company_earnings_to_send}}<br><br>
     <!-- <img src='data:image/png;base64,{{company_data_to_send}}'/> CANT GRAPH-->
     </p>
-    
-</body>
+{% endblock %}    

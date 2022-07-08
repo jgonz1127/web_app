@@ -1,3 +1,4 @@
+#used to prevent data from corruption over transfer
 import base64
 from io import BytesIO
 from flask import Flask, request, render_template
