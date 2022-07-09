@@ -4,15 +4,10 @@ from flask import (
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db
+from webiste_folder.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-   #CONNECT to db, ADD account information, ADD followed companies
-
-   #GET company_ticker from search_result.html
-
-   #ADD login functionality with db
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
