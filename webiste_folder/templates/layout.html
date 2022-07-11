@@ -10,34 +10,38 @@
         <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma"> 
         <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css')}}">
-        <style> body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif} .w3-bar-block .w3-bar-item {padding:20px} </style>
+        <script src="https://kit.fontawesome.com/9c050fdc22.js" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/header.js')}}"></script>
+
     </head>
 
     <body>  
 <!-- FIX CLASS NAMES WHEN STYLING AND CSS -->
 
 <!-- Top menu -->
-        <div class="flex_contatiner_header">
-            <div class="webname"><h1>Website</h1></div>  
-            <div class="menu_div"> 
-                <ul class="header_menu">
-                    {% block menu_items %}
-                        {% if g.user %}
-                            <li><span>{{ g.user['username'] }}</span>
-                            <li><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
-                            <li><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
-                            <li><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
-                            <li><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
-                        {% else %}
-                            <li><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
-                            <li><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
-                            <li><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
-                            <li><a href="{{ url_for('auth.login') }}" title="login page" target="_blank">login</a></li>
-                        {% endif %}
-                    {% endblock %}
-                </ul>
-            </div>
-        </div>
+    <nav class="navbar"> 
+        <ul>
+            <li class="menu_logo"><h1>Website</h1></li>
+            {% block menu_items %}
+                {% if g.user %}
+                    <li><i class="fa-solid fa-user"></i></li> 
+                    <li class="navbar_toggle">  <i class="fa-solid fa-bars"></i></li> 
+                    <li><span>{ g.user['username'] }</span> </li>
+                    <li class="link"><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+                    <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
+                    <li class="link"><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
+                    <li class="link"><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
+                {% else %}
+                    <li class="navbar_toggle"><a></a><i class="fas fa-bars"></i></li> 
+                    <li class="link"><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+                    <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
+                    <li class="link"><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
+                    <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank">login</a></li>
+                {% endif %}
+            {% endblock %}
+        </ul>
+    </nav>
+        
 
         {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>

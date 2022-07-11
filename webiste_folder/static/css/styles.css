@@ -5,7 +5,7 @@
 
 /*primary color: #59832d*/
 /* styling the header */
-.flex_contatiner_header {
+/* .flex_contatiner_header {
     color: #000000;
     padding: 20px;
     height: minmax(50px,fit-content);
@@ -13,32 +13,42 @@
     justify-content: space-around;
     flex-direction: row;
     align-items: center;
-    background-color: #1cc4a9;
-}
+    
+    
+} */
 
-.header_menu  {
+.navbar ul {
     display: flex;
-    width: 100%;
+    background-color: #1cc4a9;
+    width:100%;
     justify-content: center;
     align-items: center;
-    list-style: none;
     color: #000000;
 
 }
+.menu_logo {
+    flex:1;
+    font-size: 1.5rem;
+    user-select: none;
+}
 
-.header_menu li {
-    margin-left: 10px;
+.navbar li {
+    list-style-type: none;
+    padding: 1rem;
  }
 
-.header_menu a {
+.navbar a {
     color: black;
     display: block;
     text-decoration: none;
     transition: all 0.3s ease-out ;
 }
+.navbar_toggle { 
+    display: none;
+}
 
 /* adding transformations on hover*/
-.header_menu a:hover {
+.navbar a:hover {
   color: #59832d;
   transform: rotate(6deg);
   cursor: pointer;
@@ -120,19 +130,8 @@
 .form_div h {
     margin: 45px;
 }
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 600px) {
 
-    .header_menu {
-        display: column;
-        display: block;
-    }
-    .header_menu li {
-        display: block;
-        text-align: center;
-    }
-    .header_menu a {
-        display: block;
-    }
 
    #highed_valued_home {
         grid-row: auto;
@@ -148,16 +147,29 @@
         grid-row: auto;
         grid-column: 2 / 3;
     }
-    .form_flex_container {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
     
+    .navbar_toggle {
+        display: block;
+        align-self: flex-end;
+        margin-right: 5%;
+        align-self: center;
+        cursor:pointer;
+    }
+    .navbar ul {
+        flex-wrap: wrap;
+    }
+    .link {
+        display: none;
+        width: 100%;
+        text-align: center;;
+    }
+    .active {
+        display: block;
+    }
 }
 
 @media only screen and (min-width: 600px) {
    .body {
-    font-size: 2em;
+    font-size: 2rem;
    }
 }

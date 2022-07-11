@@ -3,8 +3,9 @@
 {% block title %} Login Page {% endblock %}
 
 {% block menu_items %}
-    <li><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
-    <li><a href="{{ url_for('auth.signup') }}" title="company page" target="_blank">sign up</a></li> 
+    <li class="navbar_toggle"> <i class="fa-solid fa-bars"></i></li> 
+    <li class="link"><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+    <li class="link"><a href="{{ url_for('auth.signup') }}" title="company page" target="_blank">sign up</a></li> 
     
 {% endblock %}
 
