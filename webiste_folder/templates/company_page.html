@@ -1,5 +1,12 @@
 {% extends "layout.html" %}
+
 {% block title %} Company Page {% endblock %}
+
+
+{% block css_path %} 
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/company.css')}}">
+{% endblock %}
+
 {% block menu_items %}
     <li><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
     <li><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>

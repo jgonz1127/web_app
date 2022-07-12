@@ -1,16 +1,69 @@
-<body>
-<p>
-{{company_sector_to_send}}<br>
-{{todays_high_to_send}}<br>
-{{todays_low_to_send}}<br>
-{{market_price_to_send}}<br>
-{{company_summary_to_send}}
-</p>
+{% extends "layout.html" %}
 
-</body>
+{% block title %} Search Results {% endblock %}
 
-<center>
-<p>Historical value</p> 
-<img src='data:image/png;base64,{{data_to_send}}'/>
+{% block css_path %} 
+<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/search.css')}}">
+{% endblock %}
+{% block main_header %} <img src={{logo_to_send}} alt="image here"> {{ company_name_to_send }} {% endblock %}
+{% block body %}
+    <div class="grid_container">
+    <!-- SEARCH BAR-->
+    <div class="search_bar">
+        <form action="{{ url_for("home")}}" method="post">
+        <label for="Ticker symbol">Ticker Symbol:</label>
+        <input type="text" id="ticker" name="ticker" />
+        <button type="submit">Search</button>
+    </div>
+    <!-- WILL DISPLAY GRAPHS OF THESE COMPANIES CALCULATED BY THE API-->
+    <div class="scroll_bar"> 
+         <marquee direction="right">
+            <p> This company is cool </p>
+        </marquee>
+    </div>
 
-</center>
+    <!--add some graphs and js to scroll -->
+     <div  class="item" id="company_daily_info">
+        <h4> Valuable Daily Info<h4><br>
+        <p>
+           Todays High: {{todays_high_to_send}}<br>
+           Todays Low: {{todays_low_to_send}}<br>
+           Market Price: {{market_price_to_send}}<br>
+           Company Sector: {{company_sector_to_send}}<br> 
+        <p>   
+    </div>
+      
+    <div  class="item" id="company_synopsis" >
+        <h3>About {{company_name_to_send}}</h3>
+        <p>
+            {{company_summary_to_send}}
+        </p>
+    </div>
+
+    <div class="item" id="search_graph">
+        <h2>Historical value</h2> 
+        <img src='data:image/png;base64,{{data_to_send}}'/>
+
+    </div>
+
+    <div class="item" id="footer">
+        <footer> <h5> footer </h5> </footer>
+    </div>
+
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

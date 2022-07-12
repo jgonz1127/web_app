@@ -9,7 +9,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma"> 
-        <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css')}}">
+        {% block css_path %} <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css')}}">
+        {% endblock %}
         <script src="https://kit.fontawesome.com/9c050fdc22.js" crossorigin="anonymous"></script>
         <script src="{{ url_for('static', filename='js/header.js')}}"></script>
 
@@ -22,19 +23,18 @@
     <nav class="navbar"> 
         <ul>
             <li class="menu_logo"><a href="{{ url_for('home') }}" title="Home page" > <i class="fa-solid fa-house fa-xl"></i></a></li>
+             <li class="website_name"><h1>{% block main_header %}Stock Site {% endblock %}</h1> </li>
             {% block menu_items %}
                 {% if g.user %}
-                    <li ><i class="fa-solid fa-user"></i></li> 
+
                     <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
-                    <li><span>{{ g.user['username'] }}</span> </li>
-                    <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
-                    <li class="link"><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
+                    <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank"><i class="fa-solid fa-arrow-trend-up fa-xl"></i></a></li>
+                    <li class="link"  title="{{ g.user['username'] }}'s Page"><a href="{{ url_for('account') }}" target='_blank'><i class="fa-solid fa-user fa-xl"></i></a></li>
                     <li class="link"><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
                 {% else %}
                     <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
-                    <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
-                    <li class="link"><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
-                    <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank">login</a></li>
+                    <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank"><i class="fa-solid fa-arrow-trend-up fa-xl"></i></a></li>
+                    <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank"><i class="fa-solid fa-circle-user fa-xl"></i></a></li>
                 {% endif %}
             {% endblock %}
         </ul>

@@ -2,9 +2,12 @@
 
 {% block title %} Login Page {% endblock %}
 
+{% block css_path %} <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/forms.css')}}">
+{% endblock %}
+
 {% block menu_items %}
-    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
-    <li class="link"><a href="{{ url_for('auth.signup') }}" title="company page" target="_blank">sign up</a></li> 
+    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xxl"></i></li> 
+    <li class="link"><a href="{{ url_for('auth.signup') }}" title="Sign up page" target="_blank"><i class="fa-solid fa-user-plus fa-xl"></i></a></li> 
     
 {% endblock %}
 
