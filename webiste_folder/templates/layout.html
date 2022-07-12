@@ -21,19 +21,17 @@
 <!-- Top menu -->
     <nav class="navbar"> 
         <ul>
-            <li class="menu_logo"><h1>Website</h1></li>
+            <li class="menu_logo"><a href="{{ url_for('home') }}" title="Home page" > <i class="fa-solid fa-house fa-xl"></i></a></li>
             {% block menu_items %}
                 {% if g.user %}
-                    <li><i class="fa-solid fa-user"></i></li> 
-                    <li class="navbar_toggle">  <i class="fa-solid fa-bars"></i></li> 
-                    <li><span>{ g.user['username'] }</span> </li>
-                    <li class="link"><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+                    <li ><i class="fa-solid fa-user"></i></li> 
+                    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
+                    <li><span>{{ g.user['username'] }}</span> </li>
                     <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
                     <li class="link"><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
                     <li class="link"><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
                 {% else %}
-                    <li class="navbar_toggle"><a></a><i class="fas fa-bars"></i></li> 
-                    <li class="link"><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+                    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
                     <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank">company</a></li>
                     <li class="link"><a href="{{ url_for('account') }}" title="account page" target='_blank'>account</a></li>
                     <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank">login</a></li>

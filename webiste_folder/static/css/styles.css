@@ -1,43 +1,38 @@
 * {
+    padding:0;
     box-sizing:border-box;
     margin:0;
 }
 
-/*primary color: #59832d*/
-/* styling the header */
-/* .flex_contatiner_header {
-    color: #000000;
-    padding: 20px;
-    height: minmax(50px,fit-content);
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: center;
-    
-    
-} */
-
+/*styling the navbar, primary color: #59832d*/
+.navbar {
+    background-color: #1cc4a9 ;
+}
 .navbar ul {
     display: flex;
-    background-color: #1cc4a9;
-    width:100%;
-    justify-content: center;
-    align-items: center;
+    width:100%; 
+    justify-content: space-around;
+    align-items: center; 
     color: #000000;
-
+    
 }
 .menu_logo {
+    padding-left:2rem;
     flex:1;
     font-size: 1.5rem;
-    user-select: none;
+    /* user-select: none; */
+}
+.menu_logo a {
+    text-decoration: none;
+    color: black;
 }
 
-.navbar li {
+.link{
     list-style-type: none;
-    padding: 1rem;
+    padding: 2rem;
  }
 
-.navbar a {
+.link a {
     color: black;
     display: block;
     text-decoration: none;
@@ -49,8 +44,9 @@
 
 /* adding transformations on hover*/
 .navbar a:hover {
-  color: #59832d;
+  color: black;
   transform: rotate(6deg);
+  font-size: larger;
   cursor: pointer;
 }
 
@@ -102,27 +98,42 @@
 
 /* Styling forms */
 .form_div {
+    padding: 100px 0 ;
     display: flex;
-    padding: 30px;
     justify-content: center;
     align-items: center;
-  
-
+    background-color:#F5F5F5 ;
 }
+
 .form_flex_container{
     max-width: 100%;
-    margin-top: 20px;
+    padding: 50px;
     display: flex;
-    padding: 30px;
     border: solid 1px;
-}
-.form_div label {
-    margin-left: 10px;
+    background-color: white;
 }
 
-/* adding media for smaller devices */
+.form_div input {  
+    width:100%;
+    margin: 10px;
+}
+.form_div input:hover {
+    font-size:large;
+}
 .form_div button {
     margin: 45px  0px;
+    display: block;
+    text-align: center;
+    width: 100%;
+    cursor:pointer;
+    background-color: #0f6456;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    
+}
+.form_div button:hover {
+    background-color: #0b443a;
 }
 .form_div p {
     margin: 45px 0px;
@@ -130,8 +141,17 @@
 .form_div h {
     margin: 45px;
 }
-@media only screen and (max-width: 600px) {
 
+.form_username{
+    margin: 10px 0;
+}
+.form_password {
+    margin: 10px 0;
+}
+
+
+/* adding media for smaller devices */
+@media only screen and (max-width: 600px) {
 
    #highed_valued_home {
         grid-row: auto;
@@ -147,21 +167,42 @@
         grid-row: auto;
         grid-column: 2 / 3;
     }
-    
+    .navbar_toggle:hover{
+        color: aliceblue;
+    }    
     .navbar_toggle {
         display: block;
         align-self: flex-end;
         margin-right: 5%;
         align-self: center;
         cursor:pointer;
+        padding: 1.5rem;
     }
     .navbar ul {
         flex-wrap: wrap;
     }
+    
     .link {
         display: none;
+        text-align: end;
         width: 100%;
-        text-align: center;;
+        position: relative;
+        text-align: center;
+        background-color: #1cc4a9;
+        padding:1rem;
+
+    }
+    .link a {
+        color: black;
+    }
+    .link:hover a {
+        display: block;  
+        color: black;
+        font-size: larger;
+        transition: none;
+    }
+    .link:hover {
+        background-color: aliceblue;
     }
     .active {
         display: block;

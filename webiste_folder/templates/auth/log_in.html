@@ -3,30 +3,38 @@
 {% block title %} Login Page {% endblock %}
 
 {% block menu_items %}
-    <li class="navbar_toggle"> <i class="fa-solid fa-bars"></i></li> 
-    <li class="link"><a href="{{ url_for('home') }}" title="Home page" >home</a></li>
+    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
     <li class="link"><a href="{{ url_for('auth.signup') }}" title="company page" target="_blank">sign up</a></li> 
     
 {% endblock %}
 
 {% block body %} 
 <!--action="{{ url_for("account")}}" -->
-<div  class="form_div">
-    <div class="form_flex_container">
-        <form method="post">
-            <h1>Login</h1>
-            <p>Please fill in this form to log in.</p>
-            <hr>
-            <div class="form_username">
-                <label for="username">Username</label>
-                <input name="username" id="username" required>
-            </div>
-            <div class="form_password">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" required>
-            </div>
-            <input type="submit" value="Log In">
-        </form>
+<div  class="form_div" >
+  <div class="form_flex_container">
+  <form method="post" >
+      <div class="container">
+        <h1>Login</h1>
+        <p>Please fill in this form to Login.</p>
+        <hr>
+        <div class="form_username">
+          <label for="username"><b>Username</b></label>
+          <br>
+          <input type="text"  id="username" placeholder="Enter username" name="username" required >
+          
+        <div class="form_password">
+            <label for="password"><b>Password</b></label>
+            <br>
+            <input type="password" id="password" placeholder="Enter Password" name="password" required >
+        </div>
+        <div class="clearfix">
+          <button type="submit" value="login"> Log In</button>
+        </div>
+        <!--add links-->
+         <h5> By creating this accoung you agree to our
+            privacy policy </h3>
+      </div>
     </div>
+  </form> 
 </div>
 {% endblock %}
