@@ -7,6 +7,10 @@ import base64
 from io import BytesIO
 import yfinance as yf
 from flask import Flask, request, render_template
+import matplotlib.style as mplstyle
+mplstyle.use('fast')
+from datetime import date
+from datetime import timedelta
 
 def create_app(test_config=None):
    app = Flask(__name__, instance_relative_config=True)
@@ -40,7 +44,7 @@ def create_app(test_config=None):
       second_company = "AMZN"
       third_company = "MKL"
 
-      #TOP COMPANY DATA 
+      # #TOP COMPANY DATA 
       top_ticker_symbol = top_company
       top_company_name = yf.Ticker(top_ticker_symbol)
 
@@ -114,7 +118,20 @@ def create_app(test_config=None):
          data = base64.b64encode(buf.getbuffer()).decode("ascii")
          plt.close()
 
+         #STOCK CHANGE - change is the difference between the current price and the last trade of the previous day
+         # subtracting the original price from the new price, divide that number by the original price, and then multiply by 100.
+         today = date.today()
+         yesterday = today - timedelta(days = 1)
+         yesterday_close = company_name.history(interval='1d', start = yesterday, end = today)
+         current_price = company_name.info['regularMarketPrice']
+
+         original_price = yesterday_close['Close'][0]
+         change = (((original_price - current_price) / original_price) * 100) * 100
+
+         print(original_price , " THEN ", current_price)
+
          return render_template("search_result.html",
+         change_to_send = int(change),
          data_to_send = data,
          company_sector_to_send = company_sector,
          market_price_to_send = market_price,
@@ -122,13 +139,13 @@ def create_app(test_config=None):
          todays_low_to_send = todays_low,
          company_summary_to_send = company_summary,)
 
-   # FIX HOME PAGE TO LOAD GRAPHS NOT IMAGES, FIX SPACING, FIX LINKS TO OTHER PAGES
-      return render_template("index.html",
+
+      return render_template ('index.html',
       top_ticker_symbol_to_send = top_ticker_symbol,
       top_company_sector_to_send = top_company_sector,
       top_company_market_price_to_send = top_company_market_price,
       top_data_to_send = top_data,
-      
+
       second_ticker_symbol_to_send = second_ticker_symbol,
       second_company_sector_to_send = second_company_sector,
       second_company_market_price_to_send = second_company_market_price,
