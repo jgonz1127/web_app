@@ -38,7 +38,8 @@ def create_app(test_config=None):
       # alphabet, Madras Rubber Factory Limited, Markel Corporation, Amazon Inc, Booking Holdings Inc.,NVR Inc.
       # Seaboard Corporation, Next Plc, Lindt & Sprüngli AG ,Berkshire Hathaway
       # top_companies = {"GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
-
+      # use .info["volume"] to find most traded company
+      # use .info["marketCap"] to find most valuable company
       #TOP 3 COMPANIES hard coded for now WILL CHANGE
       top_company = "GOOGL"
       second_company = "AMZN"
@@ -79,7 +80,6 @@ def create_app(test_config=None):
       plt.close()
 
       #THIRD COMPANY DATA
-
       third_ticker_symbol = third_company
       third_company_name = yf.Ticker(third_ticker_symbol)
 
@@ -119,23 +119,14 @@ def create_app(test_config=None):
          plt.close()
 
          #STOCK CHANGE - Change is the difference between the current price and the last trade of the previous day
-         # FIX NEGATIVE / POSITIVE
          today = date.today()
          yesterday = today - timedelta(days = 1)
          yesterday_close = company_name.history(interval='1d', start = yesterday, end = today)
          current_price = company_name.info['regularMarketPrice']
-
          original_price = yesterday_close['Close'][0]
          change = (((original_price - current_price) / original_price) * 100) * 100
+         change = change * -1
 
-         print(original_price, " and ", current_price)
-
-         if (original_price > current_price):
-            print("IN IF")
-            change = change * -1
-            print(change)
-         
-         print("NOT IF ",change)
          return render_template("search_result.html",
          change_to_send = int(change),
          data_to_send = data,
@@ -144,7 +135,6 @@ def create_app(test_config=None):
          todays_high_to_send = todays_high,
          todays_low_to_send = todays_low,
          company_summary_to_send = company_summary,)
-
 
       return render_template ('index.html',
       top_ticker_symbol_to_send = top_ticker_symbol,
@@ -182,17 +172,6 @@ def create_app(test_config=None):
       company_cashflow = company_ticker.cashflow
       company_earnings = company_ticker.earnings
 
-      #CHECK if it is even possible to graph earnings throughout the years
-      #Earnings graph 
-      earnings_data = company_earnings
-      plt.plot(earnings_data['High'])
-      plt.xlabel('Year')
-      plt.ylabel('$ USD')
-      company_buf = BytesIO()
-      plt.savefig(company_buf, format="png")
-      company_data = base64.b64encode(company_buf.getbuffer()).decode("ascii")
-      plt.close()
-
       return render_template('company_page.html', 
       company_dividends_to_send = company_dividends,
       company_financials_to_send = company_financials,
@@ -201,7 +180,6 @@ def create_app(test_config=None):
       company_balance_sheet_to_send = company_balance_sheet,
       company_cashflow_to_send = company_cashflow,
       company_earnings_to_send = company_earnings,
-      company_data_to_send = company_data
       )
    
    from . import db
