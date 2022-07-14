@@ -8,7 +8,6 @@ from io import BytesIO
 import yfinance as yf
 from flask import Flask, request, render_template
 import matplotlib.style as mplstyle
-mplstyle.use('fast')
 from datetime import date
 from datetime import timedelta
 
@@ -29,8 +28,11 @@ def create_app(test_config=None):
       os.makedirs(app.instance_path)
    except OSError:
       pass
-      
-      
+   
+   # Graph visuals
+   plt.style.use('bmh')
+   mplstyle.use('fast')
+
    @app.route("/", methods =["GET", "POST"])
    def home():
 
@@ -54,7 +56,8 @@ def create_app(test_config=None):
 
       #TOP Historical graph
       top_history_data = top_company_name.history(period = "max")
-      plt.plot(top_history_data['High'])
+      plt.plot(top_history_data['High'], color = 'Red')
+      plt.title(top_company, color = 'Black')
       plt.xlabel('Year')
       plt.ylabel('$ USD')
       top_buf = BytesIO()
@@ -65,13 +68,13 @@ def create_app(test_config=None):
       #SECOND COMPANY DATA
       second_ticker_symbol = second_company
       second_company_name = yf.Ticker(second_ticker_symbol)
-
       second_company_market_price = second_company_name.info['regularMarketPrice']
       second_company_sector = second_company_name.info['sector']
 
       #SECOND Historical graph
       second_history_data = second_company_name.history(period = "max")
       plt.plot(second_history_data['High'])
+      plt.title(second_company, color = 'Black')
       plt.xlabel('Year')
       plt.ylabel('$ USD')
       second_buf = BytesIO()
@@ -82,13 +85,13 @@ def create_app(test_config=None):
       #THIRD COMPANY DATA
       third_ticker_symbol = third_company
       third_company_name = yf.Ticker(third_ticker_symbol)
-
       third_company_market_price = third_company_name.info['regularMarketPrice']
       third_company_sector = third_company_name.info['sector']
 
       #THIRD Historical graph
       third_history_data = third_company_name.history(period = "max")
-      plt.plot(third_history_data['High'])
+      plt.plot(third_history_data['High'], color='Green')
+      plt.title(third_company, color = 'Black')
       plt.xlabel('Year')
       plt.ylabel('$ USD')
       third_buf = BytesIO()
