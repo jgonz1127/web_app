@@ -118,8 +118,8 @@ def create_app(test_config=None):
          data = base64.b64encode(buf.getbuffer()).decode("ascii")
          plt.close()
 
-         #STOCK CHANGE - change is the difference between the current price and the last trade of the previous day
-         # subtracting the original price from the new price, divide that number by the original price, and then multiply by 100.
+         #STOCK CHANGE - Change is the difference between the current price and the last trade of the previous day
+         # FIX NEGATIVE / POSITIVE
          today = date.today()
          yesterday = today - timedelta(days = 1)
          yesterday_close = company_name.history(interval='1d', start = yesterday, end = today)
@@ -128,8 +128,14 @@ def create_app(test_config=None):
          original_price = yesterday_close['Close'][0]
          change = (((original_price - current_price) / original_price) * 100) * 100
 
-         print(original_price , " THEN ", current_price)
+         print(original_price, " and ", current_price)
 
+         if (original_price > current_price):
+            print("IN IF")
+            change = change * -1
+            print(change)
+         
+         print("NOT IF ",change)
          return render_template("search_result.html",
          change_to_send = int(change),
          data_to_send = data,
