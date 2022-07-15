@@ -28,20 +28,19 @@ def create_app(test_config=None):
       os.makedirs(app.instance_path)
    except OSError:
       pass
-      
-      
+   
+   # Graph visuals
+   plt.style.use('bmh')
+   mplstyle.use('fast')
+
    @app.route("/", methods =["GET", "POST"])
    def home():
 
       #WILL COMPARE TOP COMAPNIES POST TOP 3 GRAPHS AND INFO ON HOME
       # alphabet, Madras Rubber Factory Limited, Markel Corporation, Amazon Inc, Booking Holdings Inc.,NVR Inc.
-      # Seaboard Corporation, Next Plc, Lindt & Sprüngli AG ,Berkshire Hathaway
-      # top_companies = {"GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF", "BRK.A"}
-
+      # Seaboard Corporation, Next Plc, Lindt & Sprüngli AG ,
+      top_companies = ["GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF"]
       #TOP 3 COMPANIES hard coded for now WILL CHANGE
-      top_company = "GOOGL"
-      second_company = "AMZN"
-      third_company = "MKL"
 
       #TOP COMPANY DATA 
       top_ticker_symbol = top_company
@@ -53,7 +52,8 @@ def create_app(test_config=None):
 
       #TOP Historical graph
       top_history_data = top_company_name.history(period = "max")
-      plt.plot(top_history_data['High'])
+      plt.plot(top_history_data['High'], color = 'Red')
+      plt.title(top_company, color = 'Black')
       plt.xlabel('Year')
       plt.ylabel('$ USD')
       top_buf = BytesIO()
@@ -61,16 +61,15 @@ def create_app(test_config=None):
       top_data = base64.b64encode(top_buf.getbuffer()).decode("ascii")
       plt.close()
 
-      #SECOND COMPANY DATA
-      second_ticker_symbol = second_company
-      second_company_name = yf.Ticker(second_ticker_symbol)
-
+      #HIGHEST MARKET CAP COMPANY DATA
+      second_company_name = highest_marketCap_company
       second_company_market_price = second_company_name.info['regularMarketPrice']
       second_company_sector = second_company_name.info['sector']
 
       #SECOND Historical graph
       second_history_data = second_company_name.history(period = "max")
       plt.plot(second_history_data['High'])
+      plt.title(second_company, color = 'Black')
       plt.xlabel('Year')
       plt.ylabel('$ USD')
       second_buf = BytesIO()
@@ -79,16 +78,15 @@ def create_app(test_config=None):
       plt.close()
 
       #THIRD COMPANY DATA
-
       third_ticker_symbol = third_company
       third_company_name = yf.Ticker(third_ticker_symbol)
-
       third_company_market_price = third_company_name.info['regularMarketPrice']
       third_company_sector = third_company_name.info['sector']
 
       #THIRD Historical graph
       third_history_data = third_company_name.history(period = "max")
-      plt.plot(third_history_data['High'])
+      plt.plot(third_history_data['High'], color='Green')
+      plt.title(third_company, color = 'Black')
       plt.xlabel('Year')
       plt.ylabel('$ USD')
       third_buf = BytesIO()
@@ -163,14 +161,13 @@ def create_app(test_config=None):
             redirect(url_for('home'))
             
 
-   # FIX HOME PAGE TO LOAD GRAPHS NOT IMAGES, FIX SPACING, FIX LINKS TO OTHER PAGES
-      return render_template("index.html",
-      top_ticker_symbol_to_send = top_ticker_symbol,
+      return render_template ('index.html',
+      top_ticker_symbol_to_send = top_company_name,
       top_company_sector_to_send = top_company_sector,
       top_company_market_price_to_send = top_company_market_price,
       top_data_to_send = top_data,
-      
-      second_ticker_symbol_to_send = second_ticker_symbol,
+
+      second_ticker_symbol_to_send = second_company_name,
       second_company_sector_to_send = second_company_sector,
       second_company_market_price_to_send = second_company_market_price,
       second_data_to_send = second_data,
@@ -200,17 +197,6 @@ def create_app(test_config=None):
       company_cashflow = company_ticker.cashflow
       company_earnings = company_ticker.earnings
 
-      #CHECK if it is even possible to graph earnings throughout the years
-      #Earnings graph 
-      earnings_data = company_earnings
-      plt.plot(earnings_data['High'])
-      plt.xlabel('Year')
-      plt.ylabel('$ USD')
-      company_buf = BytesIO()
-      plt.savefig(company_buf, format="png")
-      company_data = base64.b64encode(company_buf.getbuffer()).decode("ascii")
-      plt.close()
-
       return render_template('company_page.html', 
       company_dividends_to_send = company_dividends,
       company_financials_to_send = company_financials,
@@ -219,7 +205,6 @@ def create_app(test_config=None):
       company_balance_sheet_to_send = company_balance_sheet,
       company_cashflow_to_send = company_cashflow,
       company_earnings_to_send = company_earnings,
-      company_data_to_send = company_data
       )
    
    from . import db
