@@ -1,4 +1,7 @@
 #used to prevent data from corruption over transfer
+from flask import Flask, request, render_template, redirect, url_for
+# from flask.ext.images import resized_img_src
+from sys import stderr
 import matplotlib
 matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
@@ -6,7 +9,6 @@ import os
 import base64
 from io import BytesIO
 import yfinance as yf
-from flask import Flask, request, render_template
 
 def create_app(test_config=None):
    app = Flask(__name__, instance_relative_config=True)
@@ -16,6 +18,7 @@ def create_app(test_config=None):
        SECRET_KEY='dev',
        DATABASE=os.path.join(app.instance_path, 'users.sqlite'),
    )
+   #images = Images(app)
    if test_config is None:
       app.config.from_pyfile('config.py',silent=True)
    else:
@@ -43,7 +46,8 @@ def create_app(test_config=None):
       #TOP COMPANY DATA 
       top_ticker_symbol = top_company
       top_company_name = yf.Ticker(top_ticker_symbol)
-
+      
+      
       top_company_market_price = top_company_name.info['regularMarketPrice']
       top_company_sector = top_company_name.info['sector']
 
@@ -94,33 +98,70 @@ def create_app(test_config=None):
 
       #SEARCH BAR  
       if request.method == "POST":
-         ticker_symbol = request.form.get("ticker")
-         company_name = yf.Ticker(ticker_symbol)
+         try:
+            ticker_symbol = request.form.get("ticker")
+            company_name = yf.Ticker(ticker_symbol)
 
-         #Company info
-         company_sector = company_name.info['sector']
-         market_price = "Market price: ",company_name.info['regularMarketPrice']
-         todays_high = "Todays high: ", company_name.info['dayHigh']
-         todays_low = "Todays low: ", company_name.info['dayLow']
-         company_summary = "Company summary: ", company_name.info['longBusinessSummary']
-
-         #Historical graph
-         history_data = company_name.history(period = "max")
-         plt.plot(history_data['High'])
-         plt.xlabel('Year')
-         plt.ylabel('$ USD')
-         buf = BytesIO()
-         plt.savefig(buf, format="png")
-         data = base64.b64encode(buf.getbuffer()).decode("ascii")
-         plt.close()
-
-         return render_template("search_result.html",
-         data_to_send = data,
-         company_sector_to_send = company_sector,
-         market_price_to_send = market_price,
-         todays_high_to_send = todays_high,
-         todays_low_to_send = todays_low,
-         company_summary_to_send = company_summary,)
+            #Company info
+            major_holders = company_name.major_holders
+            institutional_holders = company_name.institutional_holders
+            sustainability = company_name.sustainability
+            recommendations=company_name.recommendations.tail(5)
+            company_calendar= company_name.calendar
+            company_isin =company_name.isin
+            company_long_name = company_name.info['longName']
+            company_volume = company_name.info['volume']
+            company_market_cap = company_name.info['marketCap']
+            company_dividend_rate = company_name.info['dividendRate']
+            company_circulating_supply = company_name.info['circulatingSupply']
+            company_52week_high = company_name.info['fiftyTwoWeekHigh']
+            company_52week_low = company_name.info['fiftyTwoWeekLow']
+            company_52week_change = company_name.info['52WeekChange']
+            company_yield = company_name.info['yield']
+            company_sector = company_name.info['sector']
+            company_logo = company_name.info['logo_url']
+            market_price = company_name.info['regularMarketPrice']
+            todays_high =  company_name.info['dayHigh']
+            todays_low = company_name.info['dayLow']
+            company_summary = company_name.info['longBusinessSummary']
+            #Historical graph
+            history_data = company_name.history(period = "max")
+            plt.plot(history_data['High'])
+            plt.xlabel('Year')
+            plt.ylabel('$ USD')
+            buf = BytesIO()
+            plt.savefig(buf, format="png")
+            data = base64.b64encode(buf.getbuffer()).decode("ascii")
+            plt.close()
+            
+            return render_template("search_result.html",
+            yield_to_send=company_yield,
+            holders_to_send= major_holders,
+            iholders_to_send=institutional_holders,
+            sustainability_to_send=sustainability,
+            recommendations_to_send=recommendations,
+            calendar_to_send=company_calendar,
+            isin_to_send=company_isin,
+            volume_to_send= company_volume,
+            market_cap_to_send =company_market_cap,
+            dividend_rate_to_send= company_dividend_rate,
+            supply_to_send =company_circulating_supply,
+            fifty2_high_to_send=company_52week_high,
+            fifty2_low_to_send=company_52week_low,
+            fifty2_change_to_send=company_52week_change,
+            data_to_send = data,
+            logo_to_send= company_logo,
+            company_name_to_send=company_long_name,
+            company_sector_to_send = company_sector,
+            market_price_to_send = market_price,
+            todays_high_to_send = todays_high,
+            todays_low_to_send = todays_low,
+            company_summary_to_send = company_summary)
+         except:
+            #find something to do here, maybe js?
+            print("Company could not be found",stderr)
+            redirect(url_for('home'))
+            
 
    # FIX HOME PAGE TO LOAD GRAPHS NOT IMAGES, FIX SPACING, FIX LINKS TO OTHER PAGES
       return render_template("index.html",
