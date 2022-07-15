@@ -42,37 +42,39 @@ def create_app(test_config=None):
       top_companies = ["GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF"]
       #TOP 3 COMPANIES hard coded for now WILL CHANGE
 
-      # Find company with highest volume
+      # TOP Find company with highest volume
       highest_volume_company = yf.Ticker(top_companies[0])
+
       for x in range(1, 9, 1):
          temp_volume_company = yf.Ticker(top_companies[x])
 
-         print("compare: ", highest_volume_company.info['volume'], " and " ,temp_volume_company.info['volume'], " and " , x)
+         # print("compare: ", highest_volume_company.info['volume'], " and " ,temp_volume_company.info['volume'], " and " , x)
 
          if(highest_volume_company.info['volume'] < temp_volume_company.info['volume']):
             highest_volume_company = temp_volume_company
             top_company = top_companies[x]
 
 
-      # Find company with highest market cap
-      highest_marketCap_company = yf.Ticker(top_companies[0])
+      # SECOND Find company with highest market cap CHECK NUMBERS
+      highest_market_company = yf.Ticker(top_companies[0])
       for x in range(1, 9, 1):
-         temp_marketCap_company = yf.Ticker(top_companies[x])
+         temp_market_company = yf.Ticker(top_companies[x])
+         if(temp_market_company.info['marketCap'] != None):
 
-         if(highest_marketCap_company.info['marketCap'] < temp_volume_company.info['marketCap']):
-            highest_marketCap_company = temp_marketCap_company 
-            second_company = top_companies[x]
+            print("compare: ", highest_volume_company.info['volume'], " and " ,temp_volume_company.info['volume'], " and " , x)
+            if(highest_market_company.info['marketCap'] < temp_market_company.info['marketCap']):
+               highest_market_company = temp_market_company
+               second_company = top_companies[x]
 
-
-
+      second_company = top_companies[x]
       third_company = "MKL"
 
-      # MOST VOLUME COMPANY DATA 
+      #TOP MOST VOLUME COMPANY DATA 
       top_company_name = highest_volume_company
       top_company_market_price = top_company_name.info['regularMarketPrice']
       top_company_sector = top_company_name.info['sector']
 
-      #TOP Historical graph
+      #TOP Historical graph try to print
       top_history_data = top_company_name.history(period = "max")
       plt.plot(top_history_data['High'], color = 'Red')
       plt.title(top_company, color = 'Black')
@@ -83,8 +85,8 @@ def create_app(test_config=None):
       top_data = base64.b64encode(top_buf.getbuffer()).decode("ascii")
       plt.close()
 
-      #HIGHEST MARKET CAP COMPANY DATA
-      second_company_name = highest_marketCap_company
+      # SECOND HIGHEST MARKET CAP COMPANY DATA
+      second_company_name = highest_market_company
       second_company_market_price = second_company_name.info['regularMarketPrice']
       second_company_sector = second_company_name.info['sector']
 
