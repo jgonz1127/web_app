@@ -1,2 +1,7 @@
 {% extends "layout.html" %}
+
 {% block title %} Account {% endblock %}
+
+{% block css_path %} 
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/account.css')}}">
+{% endblock %}

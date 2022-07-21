@@ -4,7 +4,11 @@
 
 {% block css_path %} <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/forms.css')}}">
 {% endblock %}
-
+{% block search %}
+  <li class="website_name">
+    <h1>Sign Up Page </h1>
+  </li>
+{% endblock %}
 {% block menu_items %}
  <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
     <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank"><i class="fa-solid fa-arrow-trend-up fa-xl"></i></a></li>

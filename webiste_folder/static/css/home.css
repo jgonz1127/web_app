@@ -2,15 +2,14 @@
     padding: 0;
     box-sizing: border-box;
     margin: 0;
+    font-family: 'Dosis', sans-serif;
 }
 
 /*styling the navbar, primary color: #59832d*/
-.navbar {
-    background-color: whitesmoke;
 
-}
 
 .navbar ul {
+    background-color: #068488;
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -28,8 +27,17 @@
 .website_name {
     list-style-type: none;
     flex: 1;
-    font-size: 1.5rem;
+    justify-self: center;
+    padding-bottom: 1rem;
+}
 
+.website_name input {
+    width: 40%;
+}
+
+.website_name button {
+    cursor: pointer;
+    width: 10%;
 }
 
 .menu_logo a {
@@ -52,7 +60,7 @@
 
 .link a:hover {
 
-    color: #1cc4a9;;
+    color: white ;;
     transform: rotate(6deg);
     /* font-size: larger; */
     cursor: pointer;
@@ -80,14 +88,13 @@
     margin: 25px;
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-template-rows: all minmax(100px, min-content);
+    grid-template-rows: all 100px;
     column-gap: 15px;
     justify-content: center;
 }
 
 .item {
     padding: 30px;
-    margin: 20px;
     text-align: center;
 }
 
@@ -95,31 +102,24 @@
     max-width: 100%;
 }
 
-.search_bar {
-    padding: 30px;
-    margin: 20px;
-    grid-row: 1 / 2;
-    grid-column: 1 / -1;
-}
-
 #highed_valued_home {
-    grid-row-start: 2;
-    grid-column: 1 / 2;
+    grid-row: 1/span 1;
+    grid-column:auto;
 }
 
 #most_traded_home {
-    grid-row-start: 2;
-    grid-column: 2 / 3;
+    grid-row: 1/span 1;
+    grid-column: auto;
 }
 
 #record_high_home {
-    grid-row-start: 2;
-    grid-column: 3 / 4;
+    grid-row: 1/span 1;
+    grid-column: auto;
 
 }
 
 #footer {
-    grid-row-start: auto;
+    grid-row: 2/span 1;
     grid-column: 2 / 3;
 }
 
@@ -129,18 +129,20 @@
 @media only screen and (max-width: 600px) {
 
     #highed_valued_home {
-        grid-row: auto;
+        grid-row: 2/ span 1;
         grid-column: 2 / 3;
     }
-
+    .website_name input {
+        width: 55%;
+    }
     #most_traded_home {
-        grid-row: auto;
-        grid-column: 2 / 3;
+    grid-row: 3/span 1;
+    grid-column: 2 / 3;
     }
 
     #record_high_home {
-        grid-row: auto;
-        grid-column: 2 / 3;
+    grid-row: 4/span 1;
+    grid-column: 2 / 3;
     }
 
         .navbar_toggle:hover {

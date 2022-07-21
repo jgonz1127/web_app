@@ -2,6 +2,7 @@
     padding: 0;
     box-sizing: border-box;
     margin: 0;
+    font-family: 'Dosis', sans-serif;
 }
 
 /*styling the navbar, primary color: #59832d*/
@@ -28,8 +29,8 @@
 .website_name {
     list-style-type: none;
     flex: 1;
-    font-size: 1.5rem;
-
+    justify-self: center;
+  
 }
 
 .menu_logo a {

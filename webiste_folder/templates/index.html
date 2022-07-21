@@ -7,17 +7,8 @@
 <!-- !PAGE CONTENT! -->
 {% block body %}
 <div class="grid_container">
-  <!-- SEARCH BAR-->
-  <div class="search_bar">
-    <form action="{{ url_for("home")}}" method="post">
-    <label for="Ticker symbol">Ticker Symbol:</label>
-    <input type="text" id="ticker" name="ticker" />
-    <button type="submit">Search</button>
-  </div>
-  <!-- WILL DISPLAY GRAPHS OF THESE COMPANIES CALCULATED BY THE API-->
 
   <div class="item" id="highest_valued_home">
-    <!-- <img src='data:image/png;base64,{{fig_to_send}}'/> -->
     <div class="chart" id="bargraph">
     <img src='data:image/png;base64,{{top_data_to_send}}'/>
   </div>

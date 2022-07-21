@@ -6,57 +6,77 @@
 {% block css_path %} 
 <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/search.css')}}">
 {% endblock %}
+{% block js_path %} <script src="{{ url_for('static', filename='js/search.js')}}"></script> {% endblock %}
 
-{% block main_header %}     
-<div class="search_bar">
-        <form action="{{ url_for("home")}}" method="post"><br>
-        <label for="Ticker symbol"></label>
-        <input type="text" id="ticker" name="ticker" />
-        <button type="submit"><i class="fa-thin fa-magnifying-glass-arrow-right"></i>
-</button>
-</div>
-{%endblock%}
+{% block search %}
+    <li class="website_name">
+        <form action="{{ url_for("search")}}" method="post">
+            <label for="Ticker symbol"></label>
+            <input type="text" id="ticker" name="ticker" />
+            <button type="submit"><i class="fa fa-search fa-xl"></i></button>
+        </form>
+    </li>
+{% endblock %}
 
 {% block body %}
     <div class="grid_container">
-    
+        
         <div id="name_price">
-            <h1 style="font-size:3rem">{{ company_name_to_send }} </h1><br>
-            <h2 style="font-size:2rem"> ${{market_price_to_send}}</h2><br><br>
+            <img src="{{ url_for('static', filename='webImage.png')}}"/>
+            <div class="name_price_inner_div">
+                <h1 style="font-size:3rem">{{ company_name_to_send }} </h1><br>
+                <h2 style="font-size:2rem"> ${{market_price_to_send}}</h2><br><br>
+            </div>
         </div>
 
     <!--add some graphs and js to scroll -->
         <div class="item" id="search_graph">
-            <center><h2>Historical value</h2></center>
-            <img src='data:image/png;base64,{{data_to_send}}'/>
+            <div class="graph_inner_div">
+                <div class="arrows prev" onclick="arrow_click('left')"></div>
+                <img src='data:image/png;base64,{{data_to_send}}' id="main_image">
+                <img src='data:image/png;base64,{{graph2}}'  id="side_image1">
+                <img src='data:image/png;base64,{{graph3}}' id="side_image2">
+
+                <div class="arrows next" onclick="arrow_click('right')"></div>
+            </div>
         </div>
 
         <div  class="item" id="company_synopsis" >
-            <center><h3>About {{company_name_to_send}}</h3></center>
+            <center><h3> Read About {{company_name_to_send}}</h3></center>
             <hr><br>
-            <p> {{company_summary_to_send}} </p>
+            <p > 
+                {{company_summary_to_send[0:60]}}
+                <span id="summary_dots">...</span>
+                <span id="read_more_company">{{company_summary_to_send[61:]}}</span>
+            </p>
+            <button onclick="read_more_button('summary_dots','read_more_company','company_summary_button')" id="company_summary_button">Read more</button>
         </div>
 
         <div  class="item" id="company_daily_info">
             <center><h3> Quick Stats</h3></center><hr><br>
             <p>
-                Todays High: {{todays_high_to_send}}<br>
-                Todays Low: {{todays_low_to_send}}<br>
-                Market Price: {{market_price_to_send}}<br>
-                Company Sector: {{company_sector_to_send}}<br> 
-                Company Volume: {{volume_to_send}}<br> 
-                Company Market Cap: {{market_cap_to_send}}<br> 
-                Company Dividens: {{dividend_rate_to_send}}<br> 
-                Company Supply: {{supply_to_send}}<br> 
-                Company isin: {{isin_to_send}}<br> 
-                company yield: {{yield_to_send}}<br>
+                <b>Todays High:</b> ${{todays_high_to_send}}<br>
+                <b>Todays Low:</b> ${{todays_low_to_send}}<br>
+                <b>Market Price:</b>  ${{market_price_to_send}}<br>
+                <span id="stats_dots">...</span>
+                <span id="read_more_stats">
+                <b>Company Sector:</b>  {{company_sector_to_send}}<br> 
+                <b>Company Volume:</b>  ${{volume_to_send}}<br> 
+                <b>Company Market Cap:</b>  ${{market_cap_to_send}}<br> 
+                <b>Company Dividens:</b>  ${{dividend_rate_to_send}}<br> 
+                <b>Company Supply:</b>  {{supply_to_send}}<br> 
+               <b> Company isin:</b>  {{isin_to_send}}<br> 
+               <b> company yield:</b>  ${{yield_to_send}}<br>
+                </span>
+                <button onclick="read_more_button('stats_dots','read_more_stats','stats_button')" id="stats_button">Read more</button>
+
             <p>   
             <hr><br>
             <center><h3>Yearly Info</h3></center><hr><br>
             <p>
-                52 Week High: {{fifty2_high_to_send}}<br> 
-                52 Week Low: {{fifty2_low_to_send}}<br> 
-                52 Week Change: {{fifty2_change_to_send}}<br>
+               <b> 52 Week High:</b>  ${{fifty2_high_to_send}}<br> 
+               <b> 52 Week Low:</b>  ${{fifty2_low_to_send}}<br> 
+               <b> 52 Week Change:</b>  ${{fifty2_change_to_send}}<br>
             </p>
         </div>
 
@@ -65,28 +85,28 @@
         <div class="item" id="analysis">
             <center><h2>Analysis</h2></center>
             <hr><br>
-            <h3>Holder Information</h3> 
-            <p>{{holders_to_send}}</p>
+            <center><h3>Holder Information</h3></center>
+            <p><pre>{{holders_to_send}}</pre></p>
             <hr><br>
             
             <center><h3>Institutional Holders Information</h3></center>
-            <p>{{iholders_to_send}}</P>
+            <p><pre>{{iholders_to_send}}</pre></P>
             <hr><br>
             
             <center><h3>sustainability</h3></center>
-            <p>{{sustainability_to_send}}</p>
+            <p><pre>{{sustainability_to_send}}</pre></p>
             <hr><br>
 
             <center><h3>Recommendations</h3></center>
-            <p>{{recommendations_to_send}}</p>
+            <p><pre>{{recommendations_to_send}}</pre></p>
             <hr><br>
         </div>
         
         <div class="item" id="calendar">
             <center><h3>Calendar</h3></center>
             <hr><br>
-            <p>{{calendar_to_send}}</p>                        <hr><br>
-
+            <p><pre>{{calendar_to_send}}</pre></p>
+            <hr><br>
         </div>
 
 
