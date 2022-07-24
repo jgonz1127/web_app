@@ -40,7 +40,7 @@ def create_app(test_config=None):
    toolbar = DebugToolbarExtension(app)
    dashboard.bind(app)
 
-   
+    
    if test_config is None:
       app.config.from_pyfile('config.py',silent=True)
    else:
