@@ -10,6 +10,15 @@ from flask import Flask, request, render_template
 import matplotlib.style as mplstyle
 from datetime import date
 from datetime import timedelta
+from newsapi import NewsApiClient
+import pandas as pd
+
+# API KEY
+newsapi = NewsApiClient(api_key='0dea726db11d4447930182ff2920e22f')
+
+# PANDAS DISPLAY
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
 
 def create_app(test_config=None):
    app = Flask(__name__, instance_relative_config=True)
@@ -36,12 +45,34 @@ def create_app(test_config=None):
    @app.route("/", methods =["GET", "POST"])
    def home():
 
-      #WILL COMPARE TOP COMAPNIES POST TOP 3 GRAPHS AND INFO ON HOME
-      # alphabet, Madras Rubber Factory Limited, Markel Corporation, Amazon Inc, Booking Holdings Inc.,NVR Inc.
-      # Seaboard Corporation, Next Plc, Lindt & Sprüngli AG ,
-      top_companies = ["GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF"]
-      #TOP 3 COMPANIES hard coded for now WILL CHANGE
+      # WILL GRAB IMAGE AND ARTICLE SUMMARY OF 3 ARTICLES AND DISPLAY PREVIEW WITH LINKS TO FULL ARTICLES
+      # TOP "STOCK" NEWS
+      top_headlines = newsapi.get_everything(q='stocks', language='en', page_size=3)
 
+      # Returns list of articles
+      articles = top_headlines['articles']
+
+
+      # MAKING articles into data frame allows for easier manipulation
+      articles_df = pd.DataFrame(articles)
+      
+      # print(articles_df)
+
+      # ENUMERATE through articles and grabs general information
+      article_titles = []
+      article_authors = []
+      article_descriptions = []
+      article_images = []
+      article_url = []
+      for x in range(0, 3 , 1):
+         article_titles.append(articles_df['title'][x])
+         article_authors.append(articles_df['author'][x])
+         article_descriptions.append(articles_df['description'][x])
+         article_images.append(articles_df['urlToImage'][x])
+         article_url.append(articles_df['url'][x])
+      
+      top_companies = ["GOOGL", "INR", "MKL", "AMZN", "BKNG", "NVR", "SEB", "NXGPY", "LDSVF"]
+# test
       # TOP Find company with highest volume
       highest_volume_company = yf.Ticker(top_companies[0])
 
@@ -61,7 +92,7 @@ def create_app(test_config=None):
          temp_market_company = yf.Ticker(top_companies[x])
          if(temp_market_company.info['marketCap'] != None):
 
-            print("compare: ", highest_volume_company.info['volume'], " and " ,temp_volume_company.info['volume'], " and " , x)
+            # print("compare: ", highest_volume_company.info['volume'], " and " ,temp_volume_company.info['volume'], " and " , x)
             if(highest_market_company.info['marketCap'] < temp_market_company.info['marketCap']):
                highest_market_company = temp_market_company
                second_company = top_companies[x]
@@ -172,7 +203,14 @@ def create_app(test_config=None):
       third_ticker_symbol_to_send = third_ticker_symbol,
       third_company_sector_to_send = third_company_sector,
       third_company_market_price_to_send = third_company_market_price,
-      third_data_to_send = third_data
+      third_data_to_send = third_data,
+
+      # ARTICLES
+      article_titles_to_send = article_titles,
+      article_authors_to_send = article_authors,
+      article_descriptions_to_send = article_descriptions,
+      article_images_to_send = article_images,
+      article_url_to_send = article_url
       )
 
    #CONNECT to db, ADD account information, ADD followed companies
