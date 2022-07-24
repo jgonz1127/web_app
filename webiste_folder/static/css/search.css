@@ -2,34 +2,30 @@
     padding: 0;
     box-sizing: border-box;
     margin: 0;
+    font-family: 'Dosis', sans-serif;
+    font-size: 1.2rem;
+}
+
+.body {
+    background-color: white;
 }
 
 /*styling the navbar, primary color: #59832d*/
-.navbar {
-    background-color: whitesmoke;
-
-}
-
 .navbar ul {
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    /* justify-content: center; */
     align-items: center;
-    color: #000000;
+    color: black;
+    /* align-content: center; */
+    padding: 10px 45px;
 
 }
-
+/* this is the home button */
 .menu_logo {
-    padding-left: 2rem;
+    align-self: center;
     flex: 1;
-    /* user-select: none; */
-}
-
-.website_name {
     list-style-type: none;
-    flex: 1;
-    font-size: 1.5rem;
-
 }
 
 .menu_logo a {
@@ -38,21 +34,38 @@
 }
 
 .menu_logo a:hover {
-    opacity: 50%;
+    opacity: 75%;
+    color: white;
 }
 
+/* this is the search bar */
+.website_name {
+    list-style-type: none;
+    flex: 1;
+    justify-self: center;
+    padding-bottom: 1rem;
+}
+
+.website_name input {
+    width: 40%;
+}
+
+.website_name button {
+    cursor: pointer;
+    width: 10%;
+}
+
+/* these are the menu items */
 .link {
+    
     list-style-type: none;
     padding: 2rem;
 }
 
-.link:hover {
-    background-color: aliceblue;
-}
 
 .link a:hover {
 
-    color: #1cc4a9;
+    color:white;
     transform: rotate(6deg);
     /* font-size: larger; */
     cursor: pointer;
@@ -74,118 +87,200 @@
     display: none;
 }
 
+/* grid for main body  */
 .grid_container {
-    margin: 25px;
+    background-color: white;
+    padding: 1.5rem;
+    color:black;
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-template-rows: all 100px;
-    column-gap: 15px;
-    justify-content: center;
+    grid-template-columns: repeat(4,auto);
+    grid-template-rows: all minmax(100px, min-content);
+    gap: 30px 30px;
 }
 
+/* item are the divs wrappers */
 .item {
     padding: 30px;
-    margin: 20px;
+    /* margin: 20px; */
     text-align: center;
 }
 
 .item img {
     max-width: 100%;
+    transition: transform 0.25s ease;
 }
-
+/* change the webkit property */
+.item img:hover {
+    -webkit-transform: scale(1);
+    /* or some other value */
+    transform: scale(1.1);
+    margin: 20px;
+}
 
 /* styling the individual item divs */
-.search_bar {
-    padding: 30px;
+#name_price {
+    justify-self: center;
     grid-row: 1 / 2;
-    grid-column: 1 / 3;
+    grid-column: 1/ 3;
+    display: flex;
+    
 }
-
-#scroll_bar {
-    grid-row: 1 / 2;
-    grid-column: 3/ -1;
+.name_price_inner_div {
+    margin-left: 45px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
-
-#footer {
-    grid-row-start: auto;
-    grid-column: 2 / 3;
-}
-
+/* graph styling */
 #search_graph {
+   
+    align-self: center;
     grid-row: 2/ span 1;
-    grid-column: 1/-1;
+    grid-column: 1/5;
 }
-#search_graph img {
-   max-width: 100%;
+
+.graph_inner_div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+/* graph arrows */
+.arrows {
+     width: 48px;
+     height: 48px; 
+     border-color: #000 ;
+     transition: hover 1s ease-in-out;
+}
+.arrows:hover {
+    opacity: 50%;
+    cursor: pointer;
+    width: 50px;
+}
+.prev{
+    border-bottom: 6px solid; 
+    border-left: 6px solid ;
+    transform: rotate(45deg) ;
+    left: 10px ;
+}
+.next{
+    border-bottom: 6px solid;
+    border-left: 6px solid;
+    transform: rotate(-135deg);
+    right: 10px;
+}
+
+/* company information divs */
+
 #company_synopsis {
     text-align: start;
-    /* make bigger later */
-    overflow: scroll;
-    grid-row: 3/ span 1;
-    grid-column: 1/2;
-    background-color: whitesmoke;
-    height:200px;
+    grid-row-start: 3;
+    grid-column: 2/3;
 }
 
 #company_daily_info {
     text-align: start;
     grid-row: 3/ span 1;
-    height: 150px;
-    grid-column: 3/-1;
-    background-color: whitesmoke;
-    overflow: scroll;
+    grid-column: 3/4;
+}
+#analysis{
+    justify-self: center;
+    grid-row: 4/ span 1;
+    grid-column: 1/-1;
+    text-align: start;
+}
+
+ #calendar {
+        justify-self: center;
+    text-align: start;
+    grid-row: 5/ span 1;
+    grid-column: 1/-1;
+
+ }
+
+ #footer {
+    align-self: auto;
+    grid-row: 6/ span 1;   
+    grid-column: 2 / 3;
+ }
+
+ /* styling items for js use */
+ #read_more_company {
+    display: none;
+ }
+#company_summary_button{
+    cursor: pointer;
+}
+#read_more_stats {
+    display: none;
+}
+
+#stats_button {
+    cursor: pointer;
+}
+#side_image1 {
+    display: none;
+}
+#side_image2 {
+    display: none;
 }
 
 /* adding media for smaller devices */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
 
     .navbar_toggle:hover {
-            color: #1cc4a9;
-        }
+         color: white;
+    }
+    .website_name input {
+        width:auto;
+    }
     
-        .navbar_toggle {
-            display: block;
-            align-self: flex-end;
-            margin-right: 5%;
-            align-self: center;
-            cursor: pointer;
-            padding: 1.5rem;
-        }
+    .navbar_toggle {
+        display: block;
+        align-self: flex-end;
+        margin-right: 5%;
+        align-self: center;
+        cursor: pointer;
+        padding: 1.5rem;
+    }
     
-        .navbar ul {
-            flex-wrap: wrap;
-        }
+    .navbar ul {
+        flex-wrap: wrap;
+    }
     
-        .link {
-            display: none;
-            text-align: end;
-            width: 100%;
-            position: relative;
-            text-align: center;
-            background-color: whitesmoke;
-            padding: 1rem;
+    .link {
+        display: none;
+        text-align: center;
+        width: 100%;
+        position: relative;
+        text-align: center;
+        background-color: #079ca1;
+        padding: 1rem;
     
-        }
+    }
     
-        .link a {
-            color: black;
-        }
+    .link a {
+        color: black;
+    }
     
-        .link:hover a {
-            display: block;
-            color: #1cc4a9;
-            font-size: larger;
-            transition: none;
-        }
+    .link:hover a {
+        display: block;
+        color: white;
+        font-size: larger;
+        transition: none;
+        opacity: 75%;
+    }
     
-        .link:hover {
-            background-color: aliceblue;
-        }
+    .link:hover {
+        opacity: 70%;    
+    }
     
-        .active {
-            display: block;
-        }
+    .website_name button {
+        width: fit-content;
+    }
+    
+    .active {
+        display: block;
+    }
 }
 
 @media only screen and (min-width: 600px) {
