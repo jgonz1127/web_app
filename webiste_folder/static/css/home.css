@@ -8,22 +8,36 @@
 /*styling the navbar, primary color: #59832d*/
 
 
+/*styling the navbar, primary color: #59832d*/
 .navbar ul {
-    background-color: #068488;
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    /* justify-content: center; */
     align-items: center;
-    color: #000000;
+    color: black;
+    /* align-content: center; */
+    padding: 10px 45px;
 
 }
 
+/* this is the home button */
 .menu_logo {
-    padding-left: 2rem;
+    align-self: center;
     flex: 1;
-    /* user-select: none; */
+    list-style-type: none;
 }
 
+.menu_logo a {
+    text-decoration: none;
+    color: black;
+}
+
+.menu_logo a:hover {
+    opacity: 75%;
+    color: white;
+}
+
+/* this is the search bar */
 .website_name {
     list-style-type: none;
     flex: 1;
@@ -40,27 +54,17 @@
     width: 10%;
 }
 
-.menu_logo a {
-    text-decoration: none;
-    color: black;
-}
-
-.menu_logo a:hover {
-    opacity: 50%;
-}
-
+/* these are the menu items */
 .link {
+
     list-style-type: none;
     padding: 2rem;
 }
 
-.link:hover {
-    background-color: aliceblue;
-}
 
 .link a:hover {
 
-    color: white ;;
+    color: white;
     transform: rotate(6deg);
     /* font-size: larger; */
     cursor: pointer;
@@ -77,9 +81,6 @@
     display: none;
 }
 
-/* adding transformations on hover*/
-
-
 .button_menu {
     display: none;
 }
@@ -88,7 +89,7 @@
     margin: 25px;
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-template-rows: all 100px;
+    grid-template-rows: all minmax(100px, min-content);
     column-gap: 15px;
     justify-content: center;
 }
@@ -101,25 +102,32 @@
 .item img {
     max-width: 100%;
 }
-
+#name_home {
+        grid-row: 1/span 1;
+        grid-column: 1/-1;
+}
 #highed_valued_home {
-    grid-row: 1/span 1;
+    grid-row: 2/span 1;
     grid-column:auto;
 }
 
 #most_traded_home {
-    grid-row: 1/span 1;
+    grid-row: 2/span 1;
     grid-column: auto;
 }
 
 #record_high_home {
-    grid-row: 1/span 1;
+    grid-row:2/span 1;
     grid-column: auto;
 
 }
+#article_home{
+    grid-row-start: 3;
+        grid-column:2/3;
+}
 
 #footer {
-    grid-row: 2/span 1;
+    grid-row: 4/span 1;
     grid-column: 2 / 3;
 }
 
