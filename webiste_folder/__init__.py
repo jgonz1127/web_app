@@ -1,15 +1,13 @@
 #used to prevent data from corruption over transfer
 from newsapi import NewsApiClient
 import urllib
-#import flask_monitoringdashboard as dashboard
+import flask_monitoringdashboard as dashboard
 import requests
 from PIL import Image
 from flask_caching import Cache
 from time import sleep, time
 # from uuid import RESERVED_FUTURE
 from flask_debugtoolbar import DebugToolbarExtension
-from datetime import timedelta
-from datetime import date
 import matplotlib.style as mplstyle
 from flask import Flask, request, render_template, redirect, url_for
 # from flask.ext.images import resized_img_src
@@ -24,13 +22,13 @@ from io import BytesIO
 import yfinance as yf
 from flask import Flask, request, render_template
 import matplotlib.style as mplstyle
-from datetime import date
-from datetime import timedelta
+import datetime
+from datetime import date ,timedelta
 import pandas as pd
 import asyncio
-import math 
 import random 
-
+import numpy
+#%matplotlib qt
 
 
 # PANDAS DISPLAY
@@ -52,7 +50,7 @@ def create_app(test_config=None):
    cache = Cache(app)
    #debug tool
    toolbar = DebugToolbarExtension(app)
-   #dashboard.bind(app)
+   dashboard.bind(app)
 
     
    if test_config is None:
@@ -138,8 +136,7 @@ def create_app(test_config=None):
       print(time()-start)
       print('calls made! making comparisons')
          
-      #@TODO pre-cache the dict values for faster look ups
-      @cache.cached(timeout=100, key_prefix="chosen_companys")
+      @cache.cached(timeout=15000, key_prefix="chosen_companys")
       def work():
          NUM_HOME_GRAPHS = 3
          temp_list = []
@@ -155,47 +152,52 @@ def create_app(test_config=None):
                   break
          return tuple(temp_list)           
       tuple_holder = work()
-      print('comparisons done')
+      print('companys ')
       print(time()-start)
       comp_1 = tuple_holder[0]
       comp_2 = tuple_holder[1]
       comp_3 = tuple_holder[2]
-      
+
       print(time()-start)
+  
       #returns futures and is coroutine
-      async def make_new_graph(history_time, xlabel, ylabel,company_obj):
-         company = company_obj.history(period=history_time)
-         plt.plot(company['High'], color='Green')
-         plt.title(company_obj.info['longName'], color='Black')
+      def make_new_graph(history_time,company_obj, title, xlabel="year", ylabel="$USD"):
+         plt.figure()
+         # company = numpy.array(company_obj.history(period=history_time)["High"])
+         plt.plot(company_obj.history(period=history_time)["High"],'bo-' ,label='Yearly_line')
+         plt.title(title)
          plt.xlabel(xlabel)
          plt.ylabel(ylabel)
          buffer = BytesIO()
          plt.savefig(buffer, format="png")
          data = base64.b64encode(buffer.getbuffer()).decode("ascii")
-         plt.close()
+         plt.clf()
          return  data
   
-      async def create_home_graphs():
+      def create_home_graphs():
          graphs= []
-         task1 = asyncio.create_task(make_new_graph("1y", "Year", "$ USD", comp_1))
-         task2 = asyncio.create_task(make_new_graph("1y","Year", "$ USD" , comp_2))
-         task3 = asyncio.create_task(make_new_graph("1y", "Year", "$USD", comp_3))
+         task1 = make_new_graph("1y", comp_1, comp_1.info['longName'])
+         task2 = make_new_graph("1y", comp_2, comp_2.info['longName'])
+         task3 = make_new_graph("1y",  comp_3, comp_3.info['longName'])
          
-         graphs.append(await task1)
-         graphs.append(await task2)
-         graphs.append(await task3)
+         graphs.append( task1)
+         graphs.append( task2)
+         graphs.append( task3)
          
          return graphs
       
       #graphs = asyncio.run(create_home_graphs())
 
       #@TODO make into function to cache the resulsts
-      @cache.cached(timeout=100, key_prefix="chosen_company_graphs")
+      @cache.cached(timeout=15000, key_prefix="chosen_company_graphs")
       def graphs():
-         graphs = asyncio.run(create_home_graphs())
+         graphs = create_home_graphs()
          return graphs
- 
+
+      print('making graphs')
       graph_list = graphs()
+      plt.close('all')
+      print(time()-start)
       top_data = graph_list[0]
       second_data = graph_list[1]
       third_data = graph_list[2]
@@ -203,11 +205,12 @@ def create_app(test_config=None):
 
       #SEARCH BAR  
      #@TODO FIX home will not redirect to search unless search bar is reused on search page
+      #SEARCH BAR
       if request.method == "POST":
          def render_company_image(url):
-            response = requests.get(url)
-            img = Image.open(BytesIO(response.content))
-            return img
+            urllib.request.urlretrieve(
+                url, "webiste_folder/static/webImage.png")
+            img = Image.open("webiste_folder/static/webImage.png")
          try:
             ticker_symbol = request.form.get("ticker")
             company_name = yf.Ticker(ticker_symbol)
@@ -217,9 +220,9 @@ def create_app(test_config=None):
             major_holders = company_name.major_holders
             institutional_holders = company_name.institutional_holders
             sustainability = company_name.sustainability
-            recommendations=company_name.recommendations.tail(5)
-            company_calendar= company_name.calendar
-            company_isin =company_name.isin
+            recommendations = company_name.recommendations.tail(5)
+            company_calendar = company_name.calendar
+            company_isin = company_name.isin
             company_long_name = company_name.info['longName']
             company_volume = company_name.info['volume']
             company_market_cap = company_name.info['marketCap']
@@ -232,80 +235,49 @@ def create_app(test_config=None):
             company_sector = company_name.info['sector']
             company_logo = company_name.info['logo_url']
             market_price = company_name.info['regularMarketPrice']
-            todays_high =  company_name.info['dayHigh']
+            todays_high = company_name.info['dayHigh']
             todays_low = company_name.info['dayLow']
             company_summary = company_name.info['longBusinessSummary']
-            company_image = render_company_image(company_name.info['logo_url'])
-            #Historical graph
-            history_data = company_name.history(period="max")
-            plt.plot(history_data['High'])
-            plt.xlabel('Year')
-            plt.ylabel('$ USD')
-            buf = BytesIO()
-            plt.savefig(buf, format="png")
-            data = base64.b64encode(buf.getbuffer()).decode("ascii")
-            plt.close()
-            
-            history_data = company_name.history(period="1y") 
-            plt.plot(['High'])
-            plt.xlabel('Year')
-            plt.ylabel('$ USD')
-            buf2 = BytesIO()
-            plt.savefig(buf2, format="png")
-            data2 = base64.b64encode(buf2.getbuffer()).decode("ascii")
-            plt.close()
-            
-            history_data = company_name.history(period="1d")           
-            plt.plot(history_data['High'])
-            plt.xlabel('Year')
-            plt.ylabel('$ USD')
-            buf3 = BytesIO()
-            plt.savefig(buf3, format="png")
-            data3 = base64.b64encode(buf3.getbuffer()).decode("ascii")
-            plt.close()
+            render_company_image(company_name.info['logo_url'])
+            print("image made")
 
-            # print("before change")
-            # #STOCK CHANGE - Change is the difference between the current price and the last trade of the previous day
-            # today = date.today()
-            # yesterday = today - timedelta(days=1)
-            # print("before history")
-            # yesterday_close = company_name.history(interval='1d', start=yesterday, end=today)
-            # current_price = company_name.info['regularMarketPrice']
-            # print("before og price")
-            # original_price = yesterday_close['close'][0] 
-            # print("before change calc")
-            # change = (((original_price - current_price) / original_price) * 100) * 100
-            # change = change * -1
+            data = make_new_graph("max", company_name, "Historical Data",)
+            data2 = make_new_graph("1y", company_name,"52 Week Data","Months")
+            data3 = make_new_graph("1wk", company_name, "1 Week Data", "days")
+            plt.close("all")
+
+            print("before change")
+            
+            print("calling template")
             return render_template("search_result.html",
-            company_image_to_send =company_image,
-            yield_to_send=company_yield,
-            holders_to_send= major_holders,
-            iholders_to_send=institutional_holders,
-            sustainability_to_send=sustainability,
-            recommendations_to_send=recommendations,
-            calendar_to_send=company_calendar,
-            isin_to_send=company_isin,
-            volume_to_send= company_volume,
-            market_cap_to_send =company_market_cap,
-            dividend_rate_to_send= company_dividend_rate,
-            supply_to_send =company_circulating_supply,
-            fifty2_high_to_send=company_52week_high,
-            fifty2_low_to_send=company_52week_low,
-            fifty2_change_to_send=company_52week_change,
-            data_to_send = data,
-            graph2=data2,
-            graph3=data3,
-            logo_to_send= company_logo,
-            company_name_to_send=company_long_name,
-            company_sector_to_send = company_sector,
-            market_price_to_send = market_price,
-            todays_high_to_send = todays_high,
-            todays_low_to_send = todays_low,
-            company_summary_to_send = company_summary)
+                                   yield_to_send=company_yield,
+                                   holders_to_send=major_holders,
+                                   iholders_to_send=institutional_holders,
+                                   sustainability_to_send=sustainability,
+                                   recommendations_to_send=recommendations,
+                                   calendar_to_send=company_calendar,
+                                   isin_to_send=company_isin,
+                                   volume_to_send=company_volume,
+                                   market_cap_to_send=company_market_cap,
+                                   dividend_rate_to_send=company_dividend_rate,
+                                   supply_to_send=company_circulating_supply,
+                                   fifty2_high_to_send=company_52week_high,
+                                   fifty2_low_to_send=company_52week_low,
+                                   fifty2_change_to_send=company_52week_change,
+                                   data_to_send=data,
+                                   graph2=data2,
+                                   graph3=data3,
+                                   logo_to_send=company_logo,
+                                   company_name_to_send=company_long_name,
+                                   company_sector_to_send=company_sector,
+                                   market_price_to_send=market_price,
+                                   todays_high_to_send=todays_high,
+                                   todays_low_to_send=todays_low,
+                                   company_summary_to_send=company_summary)
          except:
             #find something to do here, maybe js?
-            print("Company could not be found",stderr)
-            redirect(url_for('auth.login'))
+            print("Company could not be found", stderr)
+            render_template("account.html")
             
       print(time()-start)
 
@@ -323,6 +295,19 @@ def create_app(test_config=None):
 
    @app.route("/search/", methods =["GET", "POST"])
    def search():
+      def make_new_graph(history_time, company_obj, title, xlabel="year", ylabel="$USD"):
+         plt.figure()
+         # company = numpy.array(company_obj.history(period=history_time)["High"])
+         plt.plot(company_obj.history(period=history_time)
+                  ["High"], 'bo-', label='Yearly_line')
+         plt.title(title)
+         plt.xlabel(xlabel)
+         plt.ylabel(ylabel)
+         buffer = BytesIO()
+         plt.savefig(buffer, format="png")
+         data = base64.b64encode(buffer.getbuffer()).decode("ascii")
+         plt.clf()
+         return data
       #SEARCH BAR
       if request.method == "POST":
          def render_company_image(url):
@@ -358,53 +343,11 @@ def create_app(test_config=None):
             render_company_image(company_name.info['logo_url'])
             print("image made")
 
-            graph_font = {'family': 'Dosis', 'weight':'bold'}
-            #Historical graph
-            history_data = company_name.history(period="max")
-            plt.plot(history_data['High'])
-            plt.title("Hisotrical Data", fontdict = graph_font)
-            plt.xlabel('Year')
-            plt.ylabel('$ USD')
-            buf = BytesIO()
-            plt.savefig(buf, format="png")
-            data = base64.b64encode(buf.getbuffer()).decode("ascii")
-            plt.close()
-
-            year_data = company_name.history(period="1y")
-            plt.plot(year_data['High'])
-            plt.title("52 Week Data", fontdict=graph_font)
-            plt.xlabel('Year')
-            plt.ylabel('$ USD')
-            buf2 = BytesIO()
-            plt.savefig(buf2, format="png")
-            data2 = base64.b64encode(buf2.getbuffer()).decode("ascii")
-            plt.close()
-            print(year_data)
-
-            last_week_data = company_name.history(period="1wk")
-            plt.plot(last_week_data['High'])
-            plt.title("1 Week Data", fontdict = graph_font)
-            plt.xlabel("Last Week")
-            plt.ylabel('$ USD')
-            buf3 = BytesIO()
-            plt.savefig(buf3, format="png")
-            data3 = base64.b64encode(buf3.getbuffer()).decode("ascii")
-            plt.close()
-            print(last_week_data)
-
-
-            # print("before change")
-            # #STOCK CHANGE - Change is the difference between the current price and the last trade of the previous day
-            # today = date.today()
-            # yesterday = today - timedelta(days=1)
-            # print("before history")
-            # yesterday_close = company_name.history(interval='1d', start=yesterday, end=today)
-            # current_price = company_name.info['regularMarketPrice']
-            # print("before og price")
-            # original_price = yesterday_close['close'][0]
-            # print("before change calc")
-            # change = (((original_price - current_price) / original_price) * 100) * 100
-            # change = change * -1
+            data = make_new_graph("max", company_name, "Historical Data",)
+            data2 = make_new_graph("1y", company_name,"52 Week Data","Months")
+            data3 = make_new_graph("1wk", company_name, "1 Week Data", "days")
+            plt.close("all")
+   
             print("calling template")
             return render_template("search_result.html",
             yield_to_send=company_yield,
@@ -434,7 +377,8 @@ def create_app(test_config=None):
          except:
             #find something to do here, maybe js?
             print("Company could not be found", stderr)
-            render_template("auth.login")
+            render_template("index.html")
+            
    #CONNECT to db, ADD account information, ADD followed companies
    @app.route("/account/", methods =["GET", "POST"])
    def account():
@@ -472,17 +416,3 @@ def create_app(test_config=None):
       
    return app
 
-        # temp = api_responses[0]
-   # highest_volume_company = [temp, temp.info['volume'], temp.info['marketCap']]
-   # highest_marketCap_company = [temp, temp.info['volume'], temp.info['marketCap']]
-   # cached_list = []
-   # for response in api_responses:
-   #    cached_list.append([response, response.info['volume'], response.info['marketCap']])
-   # for item in cached_list:
-   #    if(highest_volume_company[1] < item[1]):
-   #       highest_volume_company = item
-   #       top_company = item
-
-   #    if(highest_marketCap_company[2] < item[2]):
-   #       highest_marketCap_company = item
-   # return (top_company, highest_marketCap_company, highest_volume_company)

@@ -21,6 +21,7 @@
     padding: 10px 45px;
 
 }
+
 /* this is the home button */
 .menu_logo {
     align-self: center;
@@ -35,7 +36,6 @@
 
 .menu_logo a:hover {
     opacity: 75%;
-    color: white;
 }
 
 /* this is the search bar */
@@ -57,18 +57,17 @@
 
 /* these are the menu items */
 .link {
-    
+    display: block;
     list-style-type: none;
     padding: 2rem;
 }
 
 
 .link a:hover {
-
-    color:white;
     transform: rotate(6deg);
     /* font-size: larger; */
     cursor: pointer;
+    opacity: 75%;
 }
 
 .link a {
@@ -81,7 +80,6 @@
 .navbar_toggle {
     display: none;
 }
-
 
 .button_menu {
     display: none;

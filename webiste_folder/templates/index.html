@@ -7,7 +7,7 @@
 <!-- !PAGE CONTENT! -->
 {% block body %}
 <div class="grid_container">
-  <div class="item" id="name_home"><center><h2> You May Like</h2></center></div>
+  
   <div class="item" id="highest_valued_home">
       <img src='data:image/png;base64,{{top_data_to_send}}'/>
   </div>
@@ -21,36 +21,55 @@
   </div>
 
    <div class="item" id="footer">
-    <footer> footer </footer>
+    <footer id="footer_flex_container">
+      <h2>Stock Site</h2> 
+      
+      <div class="footer_div">
+        <h3>Other Projects</h3>
+          <ul>
+            <li> project link </li>
+          </ul>
+      </div>
+      
+      <div class="footer_div">
+        <h3>Contact us</h3>
+          <ul>
+            <li> email here </li>
+          </ul>
+        </div>
+   
+      </footer>
   </div>
 
+
+  <!--  need to change  image size to size with div-->
   <div id="article_home">
-    <div>
-     <h3>Highest volume</h3>
-      <a href="{{article_url_to_send[0]}}"  target="_blank"> {{article_titles_to_send[0]}} </a> <br>
+    <div class="article_item">
+
+      <center><img src="{{article_images_to_send[0]}}" ></center>
+       <h3>Related article</h3><br>
       {{article_authors_to_send[0]}}<br>
       {{article_descriptions_to_send[0]}}<br>
+       <a href="{{article_url_to_send[0]}}"  target="_blank"> {{article_titles_to_send[0]}} </a> <br>
 
-      <img src="{{article_images_to_send[0]}}" width="250" height="250">
     </div>
 
-    <div>
-      <h3>Highest market cap</h3>
-
-      <a href="{{article_url_to_send[1]}}"  target="_blank"> {{article_titles_to_send[1]}} </a> <br>
+    <div class="article_item">
+      <center><img src="{{article_images_to_send[1]}}" ></center>
+     <h3>Related article</h3><br>
       {{article_authors_to_send[1]}}<br>
       {{article_descriptions_to_send[1]}}<br>
+       <a href="{{article_url_to_send[1]}}"  target="_blank"> {{article_titles_to_send[1]}} </a> <br>
 
-      <img src="{{article_images_to_send[1]}}" width="250" height="250">
     </div>
 
-    <div>
-      <a href="{{article_url_to_send[2]}}"  target="_blank"> {{article_titles_to_send[2]}} </a> <br>
+    <div class="article_item">
+      <center><img src="{{article_images_to_send[2]}}" ></center>
+      <h3>Related article</h3><br>
       {{article_authors_to_send[2]}}<br>
       {{article_descriptions_to_send[2]}}<br>
+      <a href="{{article_url_to_send[2]}}"  target="_blank"> {{article_titles_to_send[2]}} </a> <br>
 
-      <img src="{{article_images_to_send[2]}}" width="250" height="250">
-      <h3>Record high company</h3>
     </div>
   </div>
 </div>
