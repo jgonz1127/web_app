@@ -21,7 +21,6 @@ import matplotlib
 #from sqlalchemy import true
 matplotlib.use('Agg')
 
-
 bp = Blueprint('route', __name__)
 
 # Graph visuals
