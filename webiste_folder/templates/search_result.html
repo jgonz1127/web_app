@@ -1,22 +1,41 @@
 {% extends "layout.html" %}
 
 
-{% block title %} Search Results {% endblock %}
+{% block title %} navbar {% endblock %}
 
 {% block css_path %} 
 <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/search.css')}}">
 {% endblock %}
 {% block js_path %} <script src="{{ url_for('static', filename='js/search.js')}}"></script> {% endblock %}
 
-{% block search %}
-    <li class="website_name">
-        <form action="{{ url_for("search")}}" method="post">
-            <label for="Ticker symbol"></label>
-            <input type="text" id="ticker" name="ticker" />
-            <button type="submit"><i class="fa fa-search fa-xl"></i></button>
-        </form>
-    </li>
-{% endblock %}
+<nav class="navbar"> 
+    <ul>
+        <!-- change the url for search and home in there respective places to improve speed-->
+        <!-- <li class="menu_logo"><a href="{{ url_for('home') }}" title="Home page" > <i class="fa-solid fa-house fa-xl"></i></a></li> -->
+        <li class="menu_logo"><a href="{{ url_for('home') }}" title="Home page" > <img src="static\Logo.png"></a></li>
+        {% block search %}
+         <li class="website_name">
+             <form action="{{ url_for("home")}}" method="post">
+                <label for="Ticker symbol"></label>
+                <input type="text" placeholder="Ticker Symbol" id="ticker" name="ticker" />
+                <button type="submit"><i class="fa fa-search fa-xl"></i></button>
+             </form>
+         </li>
+         {% endblock %}
+        {% block menu_items %}
+            {% if g.user %}
+                    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
+                    <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank"><i class="fa-solid fa-arrow-trend-up fa-xl"></i></a></li>
+                    <li class="link"  title="{{ g.user['username'] }}'s Page"><a href="{{ url_for('account') }}" target='_blank'><i class="fa-solid fa-user fa-xl"></i></a></li>
+                    <li class="link"><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
+            {% else %}
+                    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
+                    <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank"><i class="fa-solid fa-arrow-trend-up fa-xl"></i></a></li>
+                    <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank"><i class="fa-solid fa-circle-user fa-xl"></i></a></li>
+            {% endif %}
+        {% endblock %}
+    </ul>
+</nav>
 
 {% block body %}
     <div class="grid_container">
@@ -111,7 +130,7 @@
 
 
         <div class="item" id="footer">
-            <footer> <center><h2> footer </h2></center> </footer>
+            <footer> <center>Copyright ©2022</center> </footer>
         </div>
     </div><!--grid_container-->
 {% endblock %}

@@ -7,6 +7,7 @@
 <!-- !PAGE CONTENT! -->
 {% block body %}
 <div class="grid_container">
+
   <div class="item" id="name_home"><center><h2> You May Like</h2></center></div>
   <div class="item" id="highest_valued_home">
       <img src='data:image/png;base64,{{top_data_to_send}}'/>
@@ -20,39 +21,35 @@
     <img src='data:image/png;base64,{{third_data_to_send}}'/>
   </div>
 
-   <div class="item" id="footer">
-    <footer> footer </footer>
-  </div>
-
-  <div id="article_home">
-    <div>
-     <h3>Highest volume</h3>
+  <div class="item" id="article_home"><center><h2>Top Articles on Stocks</h2></center></div>
+    <div class="item" id="article_1">
       <a href="{{article_url_to_send[0]}}"  target="_blank"> {{article_titles_to_send[0]}} </a> <br>
-      {{article_authors_to_send[0]}}<br>
+      Author:{{article_authors_to_send[0]}}<br>
       {{article_descriptions_to_send[0]}}<br>
-
-      <img src="{{article_images_to_send[0]}}" width="250" height="250">
+      <img src="{{article_images_to_send[0]}}">
     </div>
 
-    <div>
-      <h3>Highest market cap</h3>
-
+    <div class="item" id="article_2">
       <a href="{{article_url_to_send[1]}}"  target="_blank"> {{article_titles_to_send[1]}} </a> <br>
-      {{article_authors_to_send[1]}}<br>
+      Author:{{article_authors_to_send[1]}}<br>
       {{article_descriptions_to_send[1]}}<br>
-
-      <img src="{{article_images_to_send[1]}}" width="250" height="250">
+      <img src="{{article_images_to_send[1]}}">
     </div>
 
-    <div>
+    <div class="item" id="article_3">
       <a href="{{article_url_to_send[2]}}"  target="_blank"> {{article_titles_to_send[2]}} </a> <br>
-      {{article_authors_to_send[2]}}<br>
+      Author:{{article_authors_to_send[2]}}<br>
       {{article_descriptions_to_send[2]}}<br>
 
-      <img src="{{article_images_to_send[2]}}" width="250" height="250">
-      <h3>Record high company</h3>
+      <img src="{{article_images_to_send[2]}}">
     </div>
-  </div>
+
+  <!-- </div> -->
+
 </div>
+
+<div class="item" id="footer">
+  <footer> <center> Copyright ©2022 </center> </footer>
+  </div>
 
 {% endblock %} 

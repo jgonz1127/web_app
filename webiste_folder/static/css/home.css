@@ -3,6 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     font-family: 'Dosis', sans-serif;
+
 }
 
 /*styling the navbar, primary color: #59832d*/
@@ -17,7 +18,7 @@
     color: black;
     /* align-content: center; */
     padding: 10px 45px;
-
+    background-color: #845ec2 ;
 }
 
 /* this is the home button */
@@ -29,29 +30,49 @@
 
 .menu_logo a {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .menu_logo a:hover {
     opacity: 75%;
-    color: white;
+    color: black;
 }
 
 /* this is the search bar */
 .website_name {
-    list-style-type: none;
-    flex: 1;
-    justify-self: center;
-    padding-bottom: 1rem;
+
+    width:100%;
+    max-width:400px;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 5px 10px;
+
 }
 
 .website_name input {
-    width: 40%;
+    /* width: 40%; */
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    font-size: 20px;
+    color: #cac7ff;
+    padding: 10px 60px;
+
 }
 
 .website_name button {
+    /* cursor: pointer;
+    width: 10%; */
+    border: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #f3c5ff;
     cursor: pointer;
-    width: 10%;
+
 }
 
 /* these are the menu items */
@@ -63,15 +84,14 @@
 
 
 .link a:hover {
-
-    color: white;
+    color: #f3c5ff;
     transform: rotate(6deg);
     /* font-size: larger; */
     cursor: pointer;
 }
 
 .link a {
-    color: black;
+    color: white;
     display: block;
     text-decoration: none;
     transition: all 0.3s ease-out;
@@ -86,16 +106,17 @@
 }
 
 .grid_container {
-    margin: 25px;
+    margin: 0px;
     display: grid;
     grid-template-columns: auto auto auto;
     grid-template-rows: all minmax(100px, min-content);
     column-gap: 15px;
     justify-content: center;
+    background-color: white;
 }
 
 .item {
-    padding: 30px;
+    padding: 5px;
     text-align: center;
 }
 
@@ -121,16 +142,34 @@
     grid-column: auto;
 
 }
+
+a{
+    color: black;
+    font-size: 25px;
+}
+
 #article_home{
-    grid-row-start: 3;
-        grid-column:2/3;
+    grid-row: 3/span 1;
+    grid-column: 3/2;
+}
+#article_1{
+    grid-row: 4/span 1;
+    grid-column:auto;
+}
+#article_2{
+    grid-row: 4/span 1;
+    grid-column:auto;
+}
+#article_3{
+    grid-row: 4/span 1;
+    grid-column:auto;
 }
 
 #footer {
     grid-row: 4/span 1;
     grid-column: 2 / 3;
+    background-color: #845ec2;
 }
-
 
 
 /* adding media for smaller devices */

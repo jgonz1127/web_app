@@ -31,8 +31,7 @@ import asyncio
 import math 
 import random 
 
-
-
+# LOGO
 # PANDAS DISPLAY
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
@@ -77,7 +76,6 @@ def create_app(test_config=None):
       top_companies = ["TSLA","GOOGL", "MKL", "AMZN",
                        "BKNG", "NVR", "SEB", "LDSVF"]
       
-
       # ENUMERATE through articles and grabs general information
       article_titles = []
       article_authors = []
@@ -91,7 +89,7 @@ def create_app(test_config=None):
             article_descriptions.append(articles_df['description'][x])
             article_images.append(articles_df['urlToImage'][x])
             article_url.append(articles_df['url'][x])
-      #Find company with highest volume
+      
       async def make_call (company):
          return yf.Ticker(company)
       def article_api_call():
@@ -164,8 +162,10 @@ def create_app(test_config=None):
       print(time()-start)
       #returns futures and is coroutine
       async def make_new_graph(history_time, xlabel, ylabel,company_obj):
+         ax = plt.axes()
          company = company_obj.history(period=history_time)
-         plt.plot(company['High'], color='Green')
+         plt.plot(company['High'], color='#845ec2')
+         ax.set_facecolor('#4b4453')
          plt.title(company_obj.info['longName'], color='Black')
          plt.xlabel(xlabel)
          plt.ylabel(ylabel)
@@ -236,9 +236,17 @@ def create_app(test_config=None):
             todays_low = company_name.info['dayLow']
             company_summary = company_name.info['longBusinessSummary']
             company_image = render_company_image(company_name.info['logo_url'])
+
             #Historical graph
+         # ax = plt.axes()
+         # plt.plot(company['High'], color='#845ec2')
+         # ax.set_facecolor('#4b4453')
+
             history_data = company_name.history(period="max")
-            plt.plot(history_data['High'])
+            ax = plt.axes()
+            plt.title("Historical high all-time", color='Black')
+            plt.plot(history_data['High'], color='#845ec2')
+            ax.set_facecolor('#4b4453')
             plt.xlabel('Year')
             plt.ylabel('$ USD')
             buf = BytesIO()
@@ -247,7 +255,10 @@ def create_app(test_config=None):
             plt.close()
             
             history_data = company_name.history(period="1y") 
-            plt.plot(['High'])
+            ax = plt.axes()
+            plt.title("Historical high last year", color='Black')
+            plt.plot(['High'], color='#845ec2')
+            ax.set_facecolor('#4b4453')
             plt.xlabel('Year')
             plt.ylabel('$ USD')
             buf2 = BytesIO()
@@ -255,8 +266,11 @@ def create_app(test_config=None):
             data2 = base64.b64encode(buf2.getbuffer()).decode("ascii")
             plt.close()
             
-            history_data = company_name.history(period="1d")           
-            plt.plot(history_data['High'])
+            history_data = company_name.history(period="1d")
+            ax = plt.axes()
+            plt.title("Todays prices", color='Black')
+            plt.plot(history_data['High'], color='#845ec2')
+            ax.set_facecolor('#4b4453')
             plt.xlabel('Year')
             plt.ylabel('$ USD')
             buf3 = BytesIO()
