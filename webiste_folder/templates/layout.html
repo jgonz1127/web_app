@@ -26,7 +26,7 @@
     <nav class="navbar"> 
         <ul>
             <!-- change the url for search and home in there respective places to improve speed-->
-            <li class="menu_logo"><a href="{{ url_for('route.home') }}" title="Home page" > <i class="fa-solid fa-house fa-xl"></i></a></li>
+            <li class="menu_logo"><a href="{{ url_for('route.home') }}" title="Home page" > <img src="{{ url_for('static', filename='Logo.png')}}" alt="company_logo"></a></li>
             {% block search %}
              <li class="website_name">
                  <form action="{{ url_for("route.home")}}" method="post">
