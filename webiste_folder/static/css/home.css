@@ -1,117 +1,15 @@
-* {
-    padding: 0;
-    box-sizing: border-box;
-    margin: 0;
-    font-family: 'Dosis', sans-serif;
-}
-
-/*styling the navbar, primary color: #59832d*/
-.navbar ul {
-    display: flex;
-    width: 100%;
-    /* justify-content: center; */
-    align-items: center;
-    color: red;
-    /* align-content: center; */
-    padding: 10px 45px;
-    background-color: #845ec2 ;
-}
-
-/* this is the home button */
-.menu_logo {
-    align-self: center;
-    flex: 1;
-    list-style-type: none;
-}
-
-.menu_logo a {
-    text-decoration: none;
-    color: white;
-}
-
-.menu_logo a:hover {
-    opacity: 75%;
-    color: black;
-}
-
-/* this is the search bar */
-.website_name {
-
-    width:100%;
-    max-width:400px;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    border-radius: 60px;
-    padding: 5px 10px;
-
-}
-
-.website_name input {
-
-    background: transparent;
-    flex: 1;
-    border: 0;
-    outline: none;
-    font-size: 20px;
-    color: #cac7ff;
-    padding: 10px 50px;
-
-}
-
-.website_name button {
-    /* cursor: pointer;
-    width: 10%; */
-    border: 0;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background: #f3c5ff;
-    cursor: pointer;
-
-}
-
-/* these are the menu items */
-.link {
-
-    list-style-type: none;
-    padding: 2rem;
-    font-size: 1.8rem;
-}
-
-
-.link a:hover {
-    color: #f3c5ff;
-    transform: rotate(6deg);
-    cursor: pointer;
-}
-
-.link a {
-    color: white;
-    display: block;
-    text-decoration: none;
-    transition: all 0.3s ease-out;
-}
-
-.navbar_toggle {
-    display: none;
-}
-
-.button_menu {
-    display: none;
-}
+@import "styles.css";
 
 .grid_container {
-    margin: 25px;
+    margin: 45px;
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-template-rows: all minmax(100px, min-content);
+    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-rows:  repeat(2,1fr);
     gap: 30px 15px;
     justify-content: center;
 }
 
 .item {
-    padding: 30px;
     text-align: center;
 }
 
@@ -119,39 +17,37 @@
     max-width: 100%;
 }
 
-#highed_valued_home {
+#pic1 {
     grid-row: 1/span 1;
-    grid-column:1/2;
+    grid-column: 1/3;
 }
 
-#most_traded_home {
+#pic2 {
     grid-row: 1/span 1;
-    grid-column: 2/3;
+    grid-column: 3/5;
 }
 
-#record_high_home {
+#pic3 {
     grid-row:1/span 1;
-    grid-column: 3/4;
+    grid-column: 5/7;
 
 }
 #article_home{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    grid-row-start: 3;
+    grid-row: 2/3;
     grid-column:1/-1;
 }
 #article_home > div {
     padding: 20px;
-
 }
 
 .article_item  a {
     font-size: larger;
-
 }
 .article_item img {
-        max-width: 100%;
+    max-width: 100%;
 }
 .article_item a:visited {
     color: rgb(161, 104, 161);
@@ -159,90 +55,45 @@
 .article_item a:hover {
     opacity: 75%;
 }
-
-#footer {
-    grid-row: 4/span 1;
-    grid-column: 2 / 3;
-    background-color: #845ec2;
-}
-.footer_div {
-    display: flex;
-    flex-direction: column;
-}
-#footer_flex_container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
+ #footer {
+     grid-row: 3/ 4;
+     grid-column: 2 / 6;
+ }
 
 /* adding media for smaller devices */
-@media only screen and (max-width: 600px) {
-
-    #highed_valued_home {
-        grid-row: 2/ span 1;
-        grid-column: 2 / 3;
+@media only screen and (max-width: 800px) {
+    .grid_container {
+            grid-template-rows: repeat(6,auto);
+        }
+    .item{
+        padding: 0;
+       }
+    #pic1 {
+        grid-row: 1/ 2;
+        grid-column: 1 / -1;
     }
     .website_name input {
         width: 55%;
     }
-    #most_traded_home {
-    grid-row: 3/span 1;
-    grid-column: 2 / 3;
+   #pic2 {
+       grid-row: 2/ 3;
+       grid-column: 1/ -1;
+   }
+
+    #pic3 {
+        grid-row: 3/ 4;
+        grid-column: 1 / -1;
+    }
+    #article_home {
+        flex-direction: column;
+        grid-row: 4/ span 1;
+        grid-column: 1 / -1;
+    }
+    #footer {
+        grid-row: 5/ span 1;
+        grid-column: 2 / 6;
     }
 
-    #record_high_home {
-    grid-row: 4/span 1;
-    grid-column: 2 / 3;
-    }
-
-        .navbar_toggle:hover {
-            color: #1cc4a9;
-        }
-    
-        .navbar_toggle {
-            display: block;
-            align-self: flex-end;
-            margin-right: 5%;
-            align-self: center;
-            cursor: pointer;
-            padding: 1.5rem;
-        }
-    
-        .navbar ul {
-            flex-wrap: wrap;
-        }
-    
-        .link {
-            display: none;
-            text-align: end;
-            width: 100%;
-            position: relative;
-            text-align: center;
-            background-color: whitesmoke;
-            padding: 1rem;
-    
-        }
-    
-        .link a {
-            color: black;
-        }
-    
-        .link:hover a {
-            display: block;
-            color: #1cc4a9;
-            font-size: larger;
-            transition: none;
-        }
-    
-        .link:hover {
-            background-color: aliceblue;
-        }
-    
-        .active {
-            display: block;
-        }
 }
 
 @media only screen and (min-width: 600px) {

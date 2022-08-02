@@ -1,106 +1,4 @@
-* {
-    padding: 0;
-    box-sizing: border-box;
-    margin: 0;
-    font-family: 'Dosis', sans-serif;
-    font-size: 1.2rem;
-}
-
-/*styling the navbar, primary color: #59832d*/
-.navbar ul {
-    display: flex;
-    width: 100%;
-    /* justify-content: center; */
-    align-items: center;
-    color: black;
-    /* align-content: center; */
-    padding: 10px 45px;
-    background-color: #845ec2;
-}
-
-/* this is the home button */
-.menu_logo {
-    align-self: center;
-    flex: 1;
-    list-style-type: none;
-}
-
-.menu_logo a {
-    text-decoration: none;
-    color: white;
-}
-
-.menu_logo a:hover {
-    opacity: 75%;
-    color: black;
-}
-
-/* this is the search bar */
-.website_name {
-
-    width: 100%;
-    max-width: 400px;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    border-radius: 60px;
-    padding: 5px 10px;
-
-}
-
-.website_name input {
-    /* width: 40%; */
-    background: transparent;
-    flex: 1;
-    border: 0;
-    outline: none;
-    font-size: 20px;
-    color: #cac7ff;
-    padding: 10px 60px;
-
-}
-
-.website_name button {
-    /* cursor: pointer;
-    width: 10%; */
-    border: 0;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background: #f3c5ff;
-    cursor: pointer;
-
-}
-
-/* these are the menu items */
-.link {
-
-    list-style-type: none;
-    padding: 2rem;
-}
-
-
-.link a:hover {
-    color: #f3c5ff;
-    transform: rotate(6deg);
-    /* font-size: larger; */
-    cursor: pointer;
-}
-
-.link a {
-    color: white;
-    display: block;
-    text-decoration: none;
-    transition: all 0.3s ease-out;
-}
-
-.navbar_toggle {
-    display: none;
-}
-
-.button_menu {
-    display: none;
-}
+@import "styles.css";
 
 /* grid for main body  */
 .grid_container {
@@ -109,7 +7,7 @@
     color:black;
     display: grid;
     grid-template-columns: repeat(4,auto);
-    grid-template-rows: all minmax(100px, min-content);
+    grid-template-rows: repeat(6,auto);
     gap: 30px 30px;
 }
 
@@ -187,8 +85,7 @@
 /* company information divs */
 
 #company_synopsis {
-    text-align: start;
-    grid-row-start: 3;
+    grid-row-start: 3/ span 1;
     grid-column: 2/3;
 }
 
@@ -198,25 +95,22 @@
     grid-column: 3/4;
 }
 #analysis{
-    justify-self: center;
     grid-row: 4/ span 1;
-    grid-column: 1/-1;
+    grid-column: 2/4;
     text-align: start;
 }
 
  #calendar {
-        justify-self: center;
     text-align: start;
     grid-row: 5/ span 1;
-    grid-column: 1/-1;
+    grid-column: 2/4;
 
  }
-
  #footer {
-    align-self: auto;
-    grid-row: 6/ span 1;   
-    grid-column: 2 / 3;
+    grid-row: 6/ span 1;
+    grid-column: 2/4;
  }
+
 
  /* styling items for js use */
  #read_more_company {
@@ -237,65 +131,6 @@
 }
 #side_image2 {
     display: none;
-}
-
-/* adding media for smaller devices */
-@media only screen and (max-width: 700px) {
-
-    .navbar_toggle:hover {
-         color: white;
-    }
-    .website_name input {
-        width:auto;
-    }
-    
-    .navbar_toggle {
-        display: block;
-        align-self: flex-end;
-        margin-right: 5%;
-        align-self: center;
-        cursor: pointer;
-        padding: 1.5rem;
-    }
-    
-    .navbar ul {
-        flex-wrap: wrap;
-    }
-    
-    .link {
-        display: none;
-        text-align: center;
-        width: 100%;
-        position: relative;
-        text-align: center;
-        background-color: #079ca1;
-        padding: 1rem;
-    
-    }
-    
-    .link a {
-        color: black;
-    }
-    
-    .link:hover a {
-        display: block;
-        color: white;
-        font-size: larger;
-        transition: none;
-        opacity: 75%;
-    }
-    
-    .link:hover {
-        opacity: 70%;    
-    }
-    
-    .website_name button {
-        width: fit-content;
-    }
-    
-    .active {
-        display: block;
-    }
 }
 
 @media only screen and (min-width: 600px) {

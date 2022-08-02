@@ -8,21 +8,21 @@
 {% block body %}
 <div class="grid_container">
   
-  <div class="item" id="highest_valued_home">
+  <div class="item" id="pic1">
       <img src='data:image/png;base64,{{top_data_to_send}}'/>
   </div>
 
-  <div class="item" id="most_traded_home">
+  <div class="item" id="pic2">
     <img src='data:image/png;base64,{{second_data_to_send}}'/>
   </div>
 
-  <div class="item" id="record_high_home">
+  <div class="item" id="pic3">
     <img src='data:image/png;base64,{{third_data_to_send}}'/>
   </div>
 
    <div class="item" id="footer">
     <footer id="footer_flex_container">
-      <h2>Stock Site</h2> 
+      <h2><img src="{{ url_for('static', filename='Logo.png')}}" alt="company_logo"></h2> 
       
       <div class="footer_div">
         <h3>Other Projects</h3>

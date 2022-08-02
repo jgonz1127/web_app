@@ -8,16 +8,6 @@
 {% endblock %}
 {% block js_path %} <script src="{{ url_for('static', filename='js/search.js')}}"></script> {% endblock %}
 
-{% block search %}
-    <li class="website_name">
-        <form action="{{ url_for("route.search")}}" method="post">
-            <label for="Ticker symbol"></label>
-            <input type="text" id="ticker" name="ticker" />
-            <button type="submit"><i class="fa fa-search fa-xl"></i></button>
-        </form>
-    </li>
-{% endblock %}
-
 {% block body %}
     <div class="grid_container">
         
@@ -110,8 +100,22 @@
         </div>
 
 
-        <div class="item" id="footer">
-            <footer> <center><h2> footer </h2></center> </footer>
+         <div class="item" id="footer">
+            <footer id="footer_flex_container">
+                <h2>Stock Site</h2> 
+                <div class="footer_div">
+                    <h3>Other Projects</h3>
+                    <ul>
+                        <li> project link </li>
+                    </ul>
+                </div>                 
+                <div class="footer_div">
+                    <h3>Contact us</h3>
+                    <ul>
+                        <li> email here </li>
+                    </ul>
+                    </div>            
+            </footer>
         </div>
     </div><!--grid_container-->
 {% endblock %}

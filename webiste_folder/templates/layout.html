@@ -7,7 +7,7 @@
         <meta name='language' content='en'>
         <meta name='keywords' content='stocks, Stocks, Companies, money'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/x-icon" href="/static/favi.ico">
+        <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,22 +28,22 @@
             <!-- change the url for search and home in there respective places to improve speed-->
             <li class="menu_logo"><a href="{{ url_for('route.home') }}" title="Home page" > <img src="{{ url_for('static', filename='Logo.png')}}" alt="company_logo"></a></li>
             {% block search %}
-             <li class="website_name">
-                 <form action="{{ url_for("route.home")}}" method="post">
+             <li class="website_name link">
+                 <form action="{{ url_for("route.search")}}" method="post">
                     <label for="Ticker symbol"></label>
                     <input type="text" id="ticker" name="ticker" placeholder="Ticker Symbol" />
-                    <button type="submit"><i class="fa fa-search fa-xl"></i></button>
+                    <button id="search_button" type="submit"><i class="fa fa-search fa-xl"></i></button>
                  </form>
              </li>
              {% endblock %}
             {% block menu_items %}
                 {% if g.user %}
-                        <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
-                        <li class="link"  title="{{ g.user['username'] }}'s Page"><a href="{{ url_for('route.account') }}" target='_blank'><i class="fa-solid fa-user fa-xl"></i></a></li>
-                        <li class="link"><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
+                    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
+                    <li class="link"  title="{{ g.user['username'] }}'s Page"><a href="{{ url_for('route.account') }}" target='_blank'><i class="fa-solid fa-user fa-xl"></i></a></li>
+                    <li class="link"><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
                 {% else %}
-                        <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
-                        <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank"><i class="fa-solid fa-circle-user fa-xl"></i></a></li>
+                    <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
+                    <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank"><i class="fa-solid fa-circle-user fa-xl"></i></a></li>
                 {% endif %}
             {% endblock %}
         </ul>
@@ -54,29 +54,29 @@
         <div class="flash">{{ message }}</div>
         {% endfor %}
       
-            {% block body %}
-              <div class="grid_container"> 
-                <div class="item">body </div>
-                <div class="item">body</div>   
-                <div class="item">body</div>
-                <div class="item" id="footer">
-                    <footer id="footer_flex_container">
-                        <h2>Stock Site</h2> 
-                        <div class="footer_div">
-                            <h3>Other Projects</h3>
-                            <ul>
-                                <li> project link </li>
-                            </ul>
-                        </div>                 
-                        <div class="footer_div">
-                            <h3>Contact us</h3>
-                            <ul>
-                                <li> email here </li>
-                            </ul>
-                            </div>            
-                    </footer>
-                </div>
-              </div>
-            {% endblock %}
+        {% block body %}
+            <div class="grid_container"> 
+            <div class="item">body </div>
+            <div class="item">body</div>   
+            <div class="item">body</div>
+            <div class="item" id="footer">
+                <footer id="footer_flex_container">
+                    <h2>Stock Site</h2> 
+                    <div class="footer_div">
+                        <h3>Other Projects</h3>
+                        <ul>
+                            <li> project link </li>
+                        </ul>
+                    </div>                 
+                    <div class="footer_div">
+                        <h3>Contact us</h3>
+                        <ul>
+                            <li> email here </li>
+                        </ul>
+                        </div>            
+                </footer>
+            </div>
+            </div>
+        {% endblock %}
     </body>
 </html>

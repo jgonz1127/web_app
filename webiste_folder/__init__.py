@@ -3,10 +3,6 @@ import flask_monitoringdashboard as dashboard
 from flask_debugtoolbar import DebugToolbarExtension
 from flask import Flask
 # from flask.ext.images import resized_img_src
-from sys import stderr
-import matplotlib
-from sqlalchemy import true
-matplotlib.use('Agg') 
 import os
 
 def create_app(test_config=None):
