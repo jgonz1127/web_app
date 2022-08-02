@@ -168,8 +168,10 @@ def home():
         """
         plt.figure()
         # company = numpy.array(company_obj.history(period=history_time)["High"])
+        ax = plt.axes()
         plt.plot(company_obj.history(period=history_time)
-                ["High"], 'bo-', label='Yearly_line')
+                ["High"],color='#845ec2', label='Yearly_line')
+        ax.set_facecolor('#4b4453')
         plt.title(title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
@@ -229,8 +231,10 @@ def search():
     def make_new_graph(history_time, company_obj, title, xlabel="year", ylabel="$USD"):
         plt.figure()
         # company = numpy.array(company_obj.history(period=history_time)["High"])
+        ax = plt.axes()
         plt.plot(company_obj.history(period=history_time)
-                ["High"], 'bo-', label='Yearly_line')
+                ["High"], color='#845ec2', label='Yearly_line')
+        ax.set_facecolor('#4b4453')
         plt.title(title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
