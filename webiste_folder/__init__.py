@@ -11,22 +11,16 @@ import os
 
 def create_app(test_config=None):
    app = Flask(__name__, instance_relative_config=True)
-   # if __name__=='__main__':
-   #   app.run()
+
    app.config.from_mapping(
        SECRET_KEY='dev',
        DATABASE=os.path.join(app.instance_path, 'users.sqlite'),
        DEBUG_TB_PROFILER_ENABLED = True,
-      #  CACHE_TYPE= "SimpleCache",  # Flask-Caching related configs
-      #  CACHE_DEFAULT_TIMEOUT= 300
    )
-   #cache for the site 
-   #cache = Cache(app)
-   #debug tool
-   toolbar = DebugToolbarExtension(app)
-   dashboard.bind(app)
 
-    
+   #debug tool
+   # toolbar = DebugToolbarExtension(app)
+   # dashboard.bind(app)
    if test_config is None:
       app.config.from_pyfile('config.py',silent=True)
    else:
@@ -48,8 +42,6 @@ def create_app(test_config=None):
    app.register_blueprint(site_routes.bp)
    with app.app_context():
       site_routes.make_cache_config()
-   #pass in app session to change configs 
-   #site_routes.add_cache(app)
       
    return app
 
