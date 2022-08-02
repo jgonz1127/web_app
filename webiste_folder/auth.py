@@ -27,7 +27,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('home'))
+            return redirect(url_for('route.home'))
 
         flash(error)
 
@@ -66,6 +66,7 @@ def load_logged_in_user():
    #CONNECT with database
 @bp.route("/signup", methods=["GET", "POST"])
 def signup():
+
     if request.method == 'POST':
         username= request.form['username']
         password = request.form['password']

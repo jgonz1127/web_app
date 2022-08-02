@@ -26,10 +26,10 @@
     <nav class="navbar"> 
         <ul>
             <!-- change the url for search and home in there respective places to improve speed-->
-            <li class="menu_logo"><a href="{{ url_for('home') }}" title="Home page" > <i class="fa-solid fa-house fa-xl"></i></a></li>
+            <li class="menu_logo"><a href="{{ url_for('route.home') }}" title="Home page" > <i class="fa-solid fa-house fa-xl"></i></a></li>
             {% block search %}
              <li class="website_name">
-                 <form action="{{ url_for("home")}}" method="post">
+                 <form action="{{ url_for("route.home")}}" method="post">
                     <label for="Ticker symbol">Search:</label>
                     <input type="text" id="ticker" name="ticker" />
                     <button type="submit"><i class="fa fa-search fa-xl"></i></button>
@@ -39,12 +39,10 @@
             {% block menu_items %}
                 {% if g.user %}
                         <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
-                        <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank"><i class="fa-solid fa-arrow-trend-up fa-xl"></i></a></li>
-                        <li class="link"  title="{{ g.user['username'] }}'s Page"><a href="{{ url_for('account') }}" target='_blank'><i class="fa-solid fa-user fa-xl"></i></a></li>
+                        <li class="link"  title="{{ g.user['username'] }}'s Page"><a href="{{ url_for('route.account') }}" target='_blank'><i class="fa-solid fa-user fa-xl"></i></a></li>
                         <li class="link"><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
                 {% else %}
                         <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
-                        <li class="link"><a href="{{ url_for('company_page') }}" title="company page" target="_blank"><i class="fa-solid fa-arrow-trend-up fa-xl"></i></a></li>
                         <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank"><i class="fa-solid fa-circle-user fa-xl"></i></a></li>
                 {% endif %}
             {% endblock %}

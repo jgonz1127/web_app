@@ -10,7 +10,7 @@
 
 {% block search %}
     <li class="website_name">
-        <form action="{{ url_for("search")}}" method="post">
+        <form action="{{ url_for("route.search")}}" method="post">
             <label for="Ticker symbol"></label>
             <input type="text" id="ticker" name="ticker" />
             <button type="submit"><i class="fa fa-search fa-xl"></i></button>
@@ -22,7 +22,7 @@
     <div class="grid_container">
         
         <div id="name_price">
-            <img src="{{ url_for('static', filename='webImage.png')}}"/>
+            <img src="{{ url_for('static', filename='webImage.png')}}" alt="company_logo"/>
             <div class="name_price_inner_div">
                 <h1 style="font-size:3rem">{{ company_name_to_send }} </h1><br>
                 <h2 style="font-size:2rem"> ${{market_price_to_send}}</h2><br><br>

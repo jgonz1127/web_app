@@ -5,6 +5,11 @@ import sqlite3
 
 
 def get_db():
+    """create a db instance if none in current app context
+
+    Returns:
+        Connection: db connection
+    """
     if 'db' not in g:
         g.db = sqlite3.connect(
             current_app.config['DATABASE'],
@@ -16,6 +21,11 @@ def get_db():
 
 
 def close_db(e=None):
+    """closes db
+
+    Args:
+        e (_type_, optional): _description_. Defaults to None.
+    """
     db = g.pop('db', None)
 
     if db is not None:
