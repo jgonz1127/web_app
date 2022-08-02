@@ -7,7 +7,7 @@
         <meta name='language' content='en'>
         <meta name='keywords' content='stocks, Stocks, Companies, money'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="/static/favi.ico">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,8 +30,8 @@
             {% block search %}
              <li class="website_name">
                  <form action="{{ url_for("route.home")}}" method="post">
-                    <label for="Ticker symbol">Search:</label>
-                    <input type="text" id="ticker" name="ticker" />
+                    <label for="Ticker symbol"></label>
+                    <input type="text" id="ticker" name="ticker" placeholder="Ticker Symbol" />
                     <button type="submit"><i class="fa fa-search fa-xl"></i></button>
                  </form>
              </li>

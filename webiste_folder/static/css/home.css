@@ -11,10 +11,10 @@
     width: 100%;
     /* justify-content: center; */
     align-items: center;
-    color: black;
+    color: red;
     /* align-content: center; */
     padding: 10px 45px;
-    background-color: #845ec2;
+    background-color: #845ec2 ;
 }
 
 /* this is the home button */
@@ -37,8 +37,8 @@
 /* this is the search bar */
 .website_name {
 
-    width: 100%;
-    max-width: 400px;
+    width:100%;
+    max-width:400px;
     background: rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
@@ -48,14 +48,14 @@
 }
 
 .website_name input {
-    /* width: 40%; */
+
     background: transparent;
     flex: 1;
     border: 0;
     outline: none;
     font-size: 20px;
     color: #cac7ff;
-    padding: 10px 60px;
+    padding: 10px 50px;
 
 }
 
@@ -76,13 +76,13 @@
 
     list-style-type: none;
     padding: 2rem;
+    font-size: 1.8rem;
 }
 
 
 .link a:hover {
     color: #f3c5ff;
     transform: rotate(6deg);
-    /* font-size: larger; */
     cursor: pointer;
 }
 

@@ -11,16 +11,19 @@
 }
 .navbar ul {
     display: flex;
-    width:100%; 
-    justify-content: space-around;
-    align-items: center; 
-    color: #000000;
+    width: 100%;
+    /* justify-content: center; */
+    align-items: center;
+    color: black;
+    /* align-content: center; */
+    padding: 10px 45px;
+    background-color: #845ec2 ;
     
 }
 .menu_logo {
-    padding-left:2rem;
-    flex:1;
-    /* user-select: none; */
+    align-self: center;
+    flex: 1;
+    list-style-type: none;
 }
 .website_name {
     list-style-type: none;
