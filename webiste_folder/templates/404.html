@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+  {% block messages %}
+        <center><h1> OOPS... </h1></center>
+        {% for message in get_flashed_messages() %}
+            <div class="flash"> <center><h3><p>{{ message }}</p></h3></center></div>
+        {% endfor %} 
+  {% endblock %}
+  
+  {% block body %}
+        <div class="item" id="footer">
+            <footer id="footer_flex_container">
+                <h2>Stock Site</h2> 
+                <div class="footer_div">
+                    <h3>Other Projects</h3>
+                    <ul>
+                        <li> project link </li>
+                    </ul>
+                </div>                 
+                <div class="footer_div">
+                    <h3>Contact us</h3>
+                    <ul>
+                        <li> email here </li>
+                    </ul>
+                    </div>            
+            </footer>
+        </div>
+        </div>
+    {% endblock %} 
+

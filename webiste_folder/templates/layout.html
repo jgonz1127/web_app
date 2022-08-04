@@ -49,10 +49,11 @@
         </ul>
     </nav>
         
-
-        {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-        {% endfor %}
+        {% block messages %}
+            {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+            {% endfor %}
+        {% endblock %}
       
         {% block body %}
             <div class="grid_container"> 

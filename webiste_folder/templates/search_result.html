@@ -7,15 +7,44 @@
 <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/search.css')}}">
 {% endblock %}
 {% block js_path %} <script src="{{ url_for('static', filename='js/search.js')}}"></script> {% endblock %}
-
+{% block menu_items %}
+    {% if g.user %}
+        <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
+        <li class="inner_nav">
+                <li> 
+                    <button id="inner_navigate_toggle"> Navigate </button>
+                    <div id="inner_navigate_links">
+                    <li class="inner_content"><a href="#company_synopsis">Company info</a></li>
+                    <li class="inner_content"><a href="#analysis">Analysis</a></li>
+                    <li class="inner_content"><a href="#calendar">Calendar</a></li>
+                    </div>
+                </li>               
+        </li>
+        <li class="link"  title="{{ g.user['username'] }}'s Page"><a href="{{ url_for('route.account') }}" target='_blank'><i class="fa-solid fa-user fa-xl"></i></a></li>
+        <li class="link"><a href="{{ url_for('auth.logout') }}" title="logout" target="_blank">logout</a></li>
+    {% else %}
+        <li class="navbar_toggle"> <i class="fa-solid fa-bars fa-fade fa-xl"></i></li> 
+        <li class="inner_nav">
+                    <button id="inner_navigate_toggle"> Navigate </button>
+                    <div id="inner_navigate_links">
+                       <a href="#company_synopsis">Company info</a>
+                        <a href="#analysis">Analysis</a>
+                        <a href="#calendar">Calendar</a>
+                    </div>
+        </li>
+        <li class="link"><a href="{{ url_for('auth.login') }}" title="login page" target="_blank"><i class="fa-solid fa-circle-user fa-xl"></i></a></li>
+    {% endif %}
+{% endblock %}
 {% block body %}
+
     <div class="grid_container">
         
         <div id="name_price">
             <img src="{{ url_for('static', filename='webImage.png')}}" alt="company_logo"/>
             <div class="name_price_inner_div">
                 <h1 style="font-size:3rem">{{ company_name_to_send }} </h1><br>
-                <h2 style="font-size:2rem"> ${{market_price_to_send}}</h2><br><br>
+                <h2 style="font-size:2rem"> ${{market_price_to_send}}</h2><br>
+                <br>
             </div>
         </div>
 
@@ -37,7 +66,7 @@
             <p > 
                 {{company_summary_to_send[0:60]}}
                 <span id="summary_dots">...</span>
-                <span id="read_more_company">{{company_summary_to_send[61:]}}</span>
+                <span id="read_more_company">{{company_summary_to_send[60:]}}</span>
             </p>
             <button onclick="read_more_button('summary_dots','read_more_company','company_summary_button')" id="company_summary_button">Read more</button>
         </div>
@@ -75,27 +104,53 @@
         <div class="item" id="analysis">
             <center><h2>Analysis</h2></center>
             <hr><br>
+            <!--
+             h_table=[holders_to_send.to_html(classes='data')], h_titles=holders_to_send.columns.values,
+            ih_table = [iholders_to_send.to_html(classes='data')], ih_titles= iholders_to_send.columns.values,
+            sustainability_table=[sustainability_to_send.to_html(classes='data')], sus_titles=sustainability_to_send.columns.values,
+            recommendation_table=[recommendations_to_send.to_html(classes='data')], recomm_titles=recommendations_to_send.columns.values,
+            calendar_table=[calendar_to_send.to_html(classes='data')], calendar_titles=calendar_to_send.columns.values,
+            -->
             <center><h3>Holder Information</h3></center>
-            <p><pre>{{holders_to_send}}</pre></p>
+            <p>
+                    {% for table in h_table %}
+                    {{h_titles[loop.index]}}
+                    {{ table|safe }}
+                    {% endfor %}
+            </p>
             <hr><br>
             
             <center><h3>Institutional Holders Information</h3></center>
-            <p><pre>{{iholders_to_send}}</pre></P>
+                <p>
+                    {% for table in ih_table %}
+                    {{ih_titles[loop.index]}}
+                    {{ table|safe }}
+                    {% endfor %}
+                </P>
             <hr><br>
             
             <center><h3>sustainability</h3></center>
-            <p><pre>{{sustainability_to_send}}</pre></p>
+            <p><pre>{% for table in sustainability_table %}
+                    {{sus_titles[loop.index]}}
+                    {{ table|safe }}
+                    {% endfor %}</pre></p>
             <hr><br>
 
-            <center><h3>Recommendations</h3></center>
-            <p><pre>{{recommendations_to_send}}</pre></p>
+            <center ><h3>Recommendations</h3></center>
+            <p>{% for table in recommendation_table %}
+                    {{recomm_titles[loop.index]}}
+                    {{ table|safe }}
+                    {% endfor %}
+            </p>
             <hr><br>
         </div>
         
         <div class="item" id="calendar">
             <center><h3>Calendar</h3></center>
-            <hr><br>
-            <p><pre>{{calendar_to_send}}</pre></p>
+            <p>{% for table in calendar_table %}
+                    {{calendar_titles[loop.index]}}
+                    {{ table|safe }}
+                    {% endfor %}</p>
             <hr><br>
         </div>
 

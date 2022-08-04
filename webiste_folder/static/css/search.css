@@ -110,6 +110,48 @@
     grid-row: 6/ span 1;
     grid-column: 2/4;
  }
+/* nav link for js */
+#inner_navigate_toggle {
+    color: white;
+    padding: 16px;
+    border: solid 1px;
+    background:transparent;
+    cursor: pointer;
+}
+#inner_navigate_toggle:hover {
+    border: white solid 1px;
+    opacity: 50%;
+    font-size: larger;
+
+}
+.inner_nav{
+    justify-self: flex-end;
+    position:relative;
+    align-self: center;
+}
+
+#inner_navigate_links{
+    position: absolute;
+    display:none;
+    color:white;
+    background-color: #845ec2;
+    
+}
+
+#inner_navigate_links  > a {
+    padding: 20px 20px;
+    border: 1px solid;
+    text-decoration: none;
+    color: black;
+    display: block;
+
+}
+
+#inner_navigate_links>a:hover {
+    color:white;
+    cursor: pointer;
+}
+
 
 
  /* styling items for js use */

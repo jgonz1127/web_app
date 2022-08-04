@@ -4,9 +4,22 @@ window.addEventListener('load', () => {
     const side_graph1 = document.getElementById("side_image1");
     const side_graph2 = document.getElementById("side_image2");
     let current_graph = 0;
-    const graph_header = document.getElementById('graph_header');
     const nav_toggle = document.getElementsByClassName("navbar_toggle")[0];
     const nav_links = document.getElementsByClassName("link");
+    const inner_nav_toggle = document.getElementById("inner_navigate_toggle");
+    const inner_nav_items = document.getElementById("inner_navigate_links");
+
+    inner_nav_toggle.addEventListener("click", ()=> {
+        if (inner_nav_items.style.display === "block") {
+            inner_nav_toggle.style.opacity = "100%";
+            inner_nav_items.style.display = "none"
+        }
+        else {
+            inner_nav_toggle.style.opacity = "45%";
+            inner_nav_items.style.display = "block"
+        }
+    });
+
     nav_toggle.addEventListener('click', () => {
         for (let i = 0; i < nav_links.length; i++){
             nav_links[i].classList.toggle('active');
@@ -47,7 +60,6 @@ window.addEventListener('load', () => {
         }
     }
 
-    //name will be passed as pre-cached image from the above variables list
 
     read_more_button = (dots_id, more_id, button_id ) => {
         const dots = document.getElementById(dots_id);
