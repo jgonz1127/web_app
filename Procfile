@@ -1,1 +1,1 @@
-web: gunicorn __init__:app
+web: gunicorn --chdir ./webiste_folder __init__:app
