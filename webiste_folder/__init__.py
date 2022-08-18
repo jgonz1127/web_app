@@ -11,7 +11,7 @@ def create_app(test_config=None):
    app.config.from_mapping(
        SECRET_KEY='dev',
        DATABASE=os.path.join(app.instance_path, 'users.sqlite'),
-       DEBUG_TB_PROFILER_ENABLED = True,
+       DEBUG_TB_PROFILER_ENABLED = False,
    )
 
    #debug tool
